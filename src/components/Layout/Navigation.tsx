@@ -4,8 +4,8 @@ import '../../styles/navigation.css'
 const Navigation = () => {
     return (
         <aside>
-            <Link to="/">Task</Link>
-            <Link to="/">Documentation</Link>
+            <Link to="/task">Task</Link>
+            <Link to="/documentation">Documentation</Link>
         </aside>
     )
 }
