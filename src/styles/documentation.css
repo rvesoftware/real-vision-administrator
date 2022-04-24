@@ -1,0 +1,52 @@
+.navigation{
+    position: fixed;
+    height: 100%;
+    left: 25rem;
+    top: 0;
+    background-color: rgb(247, 246, 243);
+    width: 25rem;
+    padding: 2rem;
+}
+
+.search{
+    display: flex;
+    align-items: center;
+
+}
+
+.page-item{
+    display: flex;
+    gap: .5rem;
+    color: rgba(0, 0, 0, .5);
+}
+
+h4{
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+    color: rgba(0, 0, 0, .5);
+    font-weight: 500;
+}
+
+.new-page{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    width: 100%;
+    padding: 1rem;
+    color: rgba(0, 0, 0, .6);
+    cursor: pointer;
+    transition: .1s;
+}
+
+.new-page:hover{
+    background-color: rgba(0, 0, 0, .1);
+}
+
+input{
+    border: none;
+    padding: 1rem;
+    padding-left: .5rem;
+    background-color: transparent;
+    outline: none;
+}

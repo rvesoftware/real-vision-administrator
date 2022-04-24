@@ -1,0 +1,124 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html{
+  font-size: 62.5%;
+  scroll-snap-type: none;
+  scroll-behavior: smooth;
+}
+
+body{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.6rem;
+  min-height: 100vh;
+
+}
+
+main{
+  position: fixed;
+  left: 25rem;
+  transition: .5s;
+  padding: 1rem 0;
+}
+
+a{
+  text-decoration: none;
+  color: rgba(0, 0, 0, .9);
+}
+
+button{
+  cursor: pointer;
+  color: #1971EA;
+}
+
+
+h1{
+  margin-bottom: 1rem;
+}
+
+h2{
+  color: rgb(55, 53, 47)
+}
+
+p{
+  font-weight: 300;
+  margin-bottom: .5rem;
+  background-color: transparent;
+}
+
+.block {
+  padding: 0.25rem;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.block:focus,
+.isDragging,
+.blockSelected {
+  background: #F5F6FB;
+  outline-color: #F5F6FB;
+}
+
+.placeholder {
+  color: rgba(72, 72, 72, 0.25);
+}
+
+.page{
+  max-width: 1200px;
+  /* margin: 5rem auto; */
+  margin-top: 1rem;
+  margin-left: 30rem;
+  text-align: left;
+}
+
+table{
+  width: 100%;
+}
+
+tr{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8rem;
+  margin-bottom: 2rem;
+}
+
+th, td{
+  text-align: left;
+}
+
+.new-tr{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-tr span{
+  display: flex;
+  gap: 2rem;
+}
+
+.page{
+  /* max-width: 1200px; */
+}
+
+.screen-title{
+  font-weight: 500;
+  font-size: 2rem;
+  padding-left: 1rem;
+}
+
+.screen-copy{
+  font-size: 1.4rem;
+  margin-top: .5rem;
+  color: rgba(0, 0, 0, .7);
+  padding-left: 1rem;
+}
