@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/node": "^17.0.25",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-big-calendar": "^0.38.0",
     "axios": "^0.26.1",
     "date-fns": "^2.28.0",

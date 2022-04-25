@@ -36,12 +36,12 @@
 
 .list-container{
     border-top: 1px solid rgba(0, 0, 0, .1);
-    width: calc(100% - 45rem);
+    width: calc(100% - 50rem);
     margin: 3rem 0;
     display: flex;
     justify-content: space-between;
     overflow-x: scroll;
-    position: fixed;
+    position: fixed;;
 }
 
 .list-container::-webkit-scrollbar {
@@ -58,4 +58,49 @@
     padding: 1rem;
     font-size: 1.8rem;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.card-task{
+    width: 100%;
+    background-color: rgba(0, 0, 0, .05);
+    border-radius: .5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+}
+
+.card-task-title{
+    display: flex;
+    background-color: #1971EA;
+    padding: 1rem;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    border-radius: .5rem .5rem 0 0;
+    color: #F2F6FA;
+
+}
+
+.card-task-content{
+    padding: 1rem;
+}
+
+.card-task-content h2{
+    font-size: 1.6rem;
+}
+
+.card-task-content p{
+    font-size: 1.4rem;
+    padding-top: 1rem;
+}
+
+.card-task-footer{
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    min-height: 2rem;
+}
+
+.list-card-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    gap: 2rem;
 }

@@ -45,13 +45,16 @@ h1{
 }
 
 h2{
-  color: rgb(55, 53, 47)
+  color: rgb(55, 53, 47);
+  pointer-events: none;
 }
 
 p{
   font-weight: 300;
   margin-bottom: .5rem;
   background-color: transparent;
+  pointer-events: none;
+
 }
 
 .block {
