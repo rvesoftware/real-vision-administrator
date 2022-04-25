@@ -1,3 +1,7 @@
+table{
+    overflow: scroll;
+}
+
 thead tr {
     background: rgba(0, 0, 0, .04);
 }
@@ -5,12 +9,13 @@ thead tr {
 thead tr th{
     font-size: 1.4rem;
     color: rgba(0, 0, 0, .6);
-    padding: 2rem;
+    padding: 2rem 1rem;
 }
 
 tbody tr td{
     border-bottom: 1px solid rgba(0, 0, 0, .3);
     transition: .2s;
+    cursor: pointer;
 }
 
 tbody tr:hover{
@@ -19,7 +24,7 @@ tbody tr:hover{
 
 
 tbody tr td{
-    padding: 2rem;
+    padding: 1rem;
     font-size: 1.4rem;
     font-weight: 500;
     color: rgba(0, 0, 0, .8);
@@ -42,7 +47,12 @@ tbody tr td{
 }
 
 .out{
-    border: 1px solid red;
+    border: 2px solid rgba(128, 0, 0, 0.336);
+    color: rgba(128, 17, 0, 0.527);
+    background-color: rgba(128, 6, 0, 0.175);
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: .2rem;
 }
 
 td i{

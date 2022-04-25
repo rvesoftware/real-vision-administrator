@@ -57,6 +57,8 @@ const ProductsScreen = () => {
                 <button className="btn"><span><i className='bx bx-plus'></i></span> <p>Add an client</p></button>
 
             </div>
+            <div className="page-content">
+
             {loading?  <LoadingBox /> : (
 
             <table>
@@ -100,6 +102,8 @@ const ProductsScreen = () => {
                 </tbody>
             </table>
             )}
+            </div>
+
 
             <div className="page-footer">
              Row per page: 10 1-3 of {clients.length}

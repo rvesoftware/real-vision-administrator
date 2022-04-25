@@ -186,3 +186,9 @@ p{
     transform: rotate(360deg);
   }
 }
+
+.page-content{
+  height: 80vh;
+  overflow-y: scroll;
+  /* padding-bottom: 2rem; */
+}
