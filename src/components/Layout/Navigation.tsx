@@ -55,6 +55,16 @@ const Navigation = () => {
                 </div>
 
             </details>
+            <details>
+                <summary>MANAGEMENT <i className='bx bx-chevron-down' ></i></summary>
+                <div className='navigation-list'>
+            <Link to="/calendar"><i className='bx bx-calendar' ></i> Calendar</Link>
+
+                <Link to="/task"><i className='bx bx-task' ></i> Task</Link>
+                <Link to="/documentation"><i className='bx bx-file' ></i> Documentation</Link>
+                </div>
+
+            </details>
 
             
 
