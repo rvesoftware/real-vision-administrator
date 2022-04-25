@@ -4,7 +4,7 @@ import '../../../styles/documentation.css'
 
 const DocumentationScreen = () => {
     return (
-        <div>
+        <div className="screen-documentation">
             <Navigation />
             <EditablePage />
         </div>

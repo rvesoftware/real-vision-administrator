@@ -8,10 +8,17 @@
     padding: 2rem;
 }
 
+.screen-documentation{
+    max-width: 1200px;
+    /* margin: 5rem auto; */
+    margin-top: 1rem;
+    margin-left: 30rem;
+    text-align: left;
+}
+
 .search{
     display: flex;
     align-items: center;
-
 }
 
 .page-item{

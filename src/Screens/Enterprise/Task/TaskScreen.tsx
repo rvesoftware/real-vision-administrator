@@ -12,11 +12,19 @@ const TaskScreen = () => {
     }
     
     return (
-        <div>
+        <>
             <Navigation />
             <div className="screen">
-                <h2 className="screen-title">Tasks</h2>
-                <p className="screen-copy">Team tasks for the current period</p>
+                <div className="screen-header">
+                    <div>
+
+                    <h2 className="screen-title">Tasks</h2>
+                    <p className="screen-copy">Team tasks for the current period</p>
+                    </div>
+
+                    <button className="btn"><span><i className='bx bx-plus'></i></span> <p>Create an task</p></button>
+
+                </div>
 
                 <DragDropContext onDragEnd={onDragEnd}>
                     <div className="list-container">
@@ -43,7 +51,7 @@ const TaskScreen = () => {
                 </DragDropContext>
 
             </div>
-        </div>
+        </>
     )
 }
 

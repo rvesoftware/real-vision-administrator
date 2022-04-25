@@ -1,0 +1,50 @@
+thead tr {
+    background: rgba(0, 0, 0, .04);
+}
+
+thead tr th{
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, .6);
+    padding: 2rem;
+}
+
+tbody tr td{
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+    transition: .2s;
+}
+
+tbody tr:hover{
+    box-shadow: 0 0px 8px rgba(0, 0, 0, .15);
+}
+
+
+tbody tr td{
+    padding: 2rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, .8);
+}
+
+.new-tr{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.active{
+    border: 2px solid rgba(0, 128, 0, 0.336);
+    color: rgba(0, 128, 0, 0.527);
+    background-color: rgba(0, 128, 0, 0.175);
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: .2rem;
+}
+
+.out{
+    border: 1px solid red;
+}
+
+td i{
+    font-size: 2rem;
+}

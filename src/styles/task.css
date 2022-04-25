@@ -16,6 +16,14 @@
     width: 100%;
 }
 
+.screen-header{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    width: calc(100% - 50rem);
+    padding: 0 1rem;
+}
+
 .task-team-create-button{
     margin-top: 2rem;
     border: none;
@@ -93,7 +101,9 @@
 
 .card-task-footer{
     border-top: 1px solid rgba(0, 0, 0, .1);
-    min-height: 2rem;
+    padding: 1rem .5rem;
+    display: flex;
+    gap: .5rem;
 }
 
 .list-card-container{
@@ -103,4 +113,16 @@
     flex-direction: column;
     padding: 1rem 2rem;
     gap: 2rem;
+}
+
+.user-content{
+    max-width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
+}
+
+.user-content img{
+    width: 100%;
 }
