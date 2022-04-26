@@ -63,9 +63,17 @@ const CalendarScreen = () => {
     }
 
     return(
-        <div>
-            <h2>Calendar</h2>
-            <p>Your work calendar</p>
+        <div className="page">
+
+            <div className="page-header">
+                <div>
+
+                <h2>Calendar</h2>
+                <p>Your work calendar</p>
+                </div>
+                <button className="btn">Add an Event</button>
+            </div>
+
             <div>
                 <input type="text" placeholder="Add Title" />
             </div>

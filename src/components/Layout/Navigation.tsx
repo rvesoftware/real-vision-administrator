@@ -27,9 +27,9 @@ const Navigation = () => {
             <details>
                 <summary>HARDWARE <i className='bx bx-chevron-down' ></i></summary>
                 <div className='navigation-list'>
-                <Link to="/products">Products</Link>
-            <Link to="/computers">Computers</Link>
-            <Link to="/clients">Clients</Link>
+                <Link to="/products"><i className='bx bxl-product-hunt'></i> Products</Link>
+            <Link to="/computers"><i className='bx bx-desktop' ></i> Computers</Link>
+            <Link to="/clients"><i className='bx bxs-user-badge'></i> Clients</Link>
                 </div>
 
             </details>
@@ -58,10 +58,7 @@ const Navigation = () => {
             <details>
                 <summary>MANAGEMENT <i className='bx bx-chevron-down' ></i></summary>
                 <div className='navigation-list'>
-            <Link to="/calendar"><i className='bx bx-calendar' ></i> Calendar</Link>
-
-                <Link to="/task"><i className='bx bx-task' ></i> Task</Link>
-                <Link to="/documentation"><i className='bx bx-file' ></i> Documentation</Link>
+                    <Link to="/employes"><i className='bx bxs-user-detail' ></i> Employes</Link>
                 </div>
 
             </details>

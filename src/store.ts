@@ -2,6 +2,8 @@ import { applyMiddleware, combineReducers, compose, createStore, Dispatch } from
 import thunk from "redux-thunk";
 import productReducer from "./reducers/productReducer";
 import * as RR from 'react-redux';
+import teamReducer from "./reducers/teamReducer";
+import { uploadReducer } from "./reducers/uploadReducer";
 
 const initialState = {
 
@@ -12,6 +14,14 @@ const reducer = combineReducers({
     productCreate: productReducer.createReducer,
     productUpdate: productReducer.updateReducer,
     productDelete: productReducer.deleteReducer,
+
+    teamList  : teamReducer.listReducer,
+    teamCreate: teamReducer.createReducer,
+    teamUpdate: teamReducer.updateReducer,
+    teamDelete: teamReducer.deleteReducer,
+
+    uploadImage: uploadReducer,
+
 })
 
 const composeEnhancer =  compose;

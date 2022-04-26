@@ -56,6 +56,7 @@ export default class actionsTemplate{
         this.api = api;
 
         this.URL = "https://real-vision-api.herokuapp.com";
+        // this.URL = "http://localhost:4500";
     }
 
     list = () => async(dispatch: Dispatch) => {
@@ -82,7 +83,7 @@ export default class actionsTemplate{
     create = (props: any) => async(dispatch: any) => {
         dispatch({type: this.CREATE_REQUEST, payload: props});
         try{
-            const {data} = await Axios.post(`${this.URL}/${this.api}/`, props);
+            const {data} = await Axios.put(`${this.URL}/${this.api}`, props);
             dispatch({type: this.CREATE_SUCCESS, payload: data});
         }catch(error:any){
             const message = error.response && error.response.data.message ? error.response.data.message : error.message;
