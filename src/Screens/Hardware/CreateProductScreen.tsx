@@ -32,13 +32,10 @@ const CreateProductScreen = () => {
 
         const file = e.target.files[0];
         const bodyFormData = new FormData();
-        console.log(bodyFormData)
 
         bodyFormData.append('file', file);
 
-        for (var key of bodyFormData.entries()) {
-            console.log(key[0] + ', ' + key[1]);
-        }
+     
         try {
             dispatch({ type: "UPLOAD_REQUEST" });
 
@@ -55,13 +52,11 @@ const CreateProductScreen = () => {
     }
 
     const createProductHandler = () => {
-        console.log("UPDATE");
         dispatch(productActions.create({ name, brand, category, price, wattage, image, description }) as any);
     }
 
     useEffect(() => {
         if (success) {
-            console.log("Created")
         }
 
         dispatch(categoryActions.list() as any)

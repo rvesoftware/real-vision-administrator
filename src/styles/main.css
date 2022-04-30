@@ -89,6 +89,7 @@ p{
   padding: 0.25rem;
   -webkit-user-select: text;
   user-select: text;
+  z-index: 999;
 }
 
 
@@ -373,3 +374,6 @@ p{
 }
 
 
+.page-item{
+  cursor: pointer;
+}

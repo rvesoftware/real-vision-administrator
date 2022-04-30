@@ -55,8 +55,8 @@ export default class actionsTemplate{
 
         this.api = api;
 
-        // this.URL = "https://real-vision-api.herokuapp.com";
-        this.URL = "http://localhost:4500";
+        this.URL = "https://real-vision-api.herokuapp.com";
+        // this.URL = "http://localhost:4500";
     }
 
     list = () => async(dispatch: Dispatch) => {
@@ -76,7 +76,6 @@ export default class actionsTemplate{
             dispatch({type: this.DETAILS_SUCCESS, payload:data});
         }catch(err){
             dispatch({type: this.DETAILS_FAIL});
-            console.log(err)
         }
     }
 
@@ -84,7 +83,6 @@ export default class actionsTemplate{
         dispatch({type: this.CREATE_REQUEST, payload: props});
         try{
             const {data} = await Axios.put(`${this.URL}/${this.api}`, props);
-            console.log(data)
             dispatch({type: this.CREATE_SUCCESS, payload: data});
         }catch(error:any){
             const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -93,7 +91,6 @@ export default class actionsTemplate{
     }
 
     update = (props: any) => async(dispatch: any) => {
-        console.log(props.blocks)
         dispatch({ type: this.UPDATE_REQUEST, payload: { props } });
         try {
           const { data } = await Axios.put(`${this.URL}/${this.api}/${props._id}`, { props });

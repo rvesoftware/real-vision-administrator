@@ -5,13 +5,9 @@ const uploadHandler = async (e: any, imageField = "image", dispatch: any, setIma
 
     const file = e.target.files[0];
     const bodyFormData = new FormData();
-    console.log(bodyFormData)
 
     bodyFormData.append('file', file);
 
-    for (var key of bodyFormData.entries()) {
-        console.log(key[0] + ', ' + key[1]);
-    }
     try {
         dispatch({ type: "UPLOAD_REQUEST" });
 

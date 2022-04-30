@@ -10,6 +10,7 @@ interface Props{
     tag: string;
     position: number;
     addBlockHandler: Function
+    updateBlockHandler: Function
 }
 
 const EditableBlock = (props: Props) => {
@@ -25,25 +26,18 @@ const EditableBlock = (props: Props) => {
     const [selectMenuPosition, setSelectMenuPosition] = useState({x: null, y:null});
 
     const addPlaceholderHandler = ({block, content, position} : any) => {
-
-        console.log(block)
-        console.log(content)
-        console.log(position)
-
         const isFirstBlockWithout = position === 1 && !content;
         const isFirstBlockWithoutSibling = !block?.parentElement?.nextElementSibling;
         if(isFirstBlockWithout && isFirstBlockWithoutSibling) {
             setHtml("Untitled");
-            setTag("h2");
+            setTag("h1");
             setPlaceholder(true);
             return true;
         }else{
             return false;
         }
     }
-
     useEffect(() => {
-        console.log("Current", contentEditable.current)
         const hasPlaceholder = addPlaceholderHandler({
             block: contentEditable.current,
             position: props.position,
@@ -54,6 +48,10 @@ const EditableBlock = (props: Props) => {
             setHtml(props.html);
             setTag(props.tag);
         }
+
+        // if((!isTyping && props.html != html) && !placeholder){
+        //     console.log("HERE")
+        // }
     }, [])
 
     const handleFocus = () => {
@@ -70,7 +68,8 @@ const EditableBlock = (props: Props) => {
 
         if(e.key === "Enter" && previosKey !== "Shift" ){
                 e.preventDefault();
-                props.addBlockHandler({id: props.id, html: html, tag: tag, ref: contentEditable.current});
+                // props.updateBlockHandler({_id: props.id, html: html, tag: tag})
+                props.addBlockHandler({html: html, tag: tag, ref: contentEditable.current});
         }
         // if(e.key === "Backspace" && !html){
         //     e.preventDefault();
@@ -101,7 +100,6 @@ const EditableBlock = (props: Props) => {
         <ContentEditable 
             innerRef={() => contentEditable}
             data-position={props.position}
-            data-tag={tag}
             className={["block", placeholder? " placeholder": ""].join("")}
             html={html}
             tagName={tag}

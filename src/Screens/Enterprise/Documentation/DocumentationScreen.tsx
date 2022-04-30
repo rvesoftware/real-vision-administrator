@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import LoadingBox from "../../../components/LoadingBox";
 import { useDispatch } from "react-redux";
 import pageActions from "../../../actions/pageActions";
+import constants from "../../../constants/constantsTemplate";
 
 interface Page {
     _id?: string;
@@ -20,20 +21,29 @@ const DocumentationScreen = () => {
     const pageList = useSelector((state: any) => state.pageList);
     const { loading, error, data: pages } = pageList;
 
+    const pageOne = useSelector((state: any) => state.pageOne);
+    const { loading: loadingOne, error: errorOne, data: pageFetch } = pageOne;
+
     const pageCreate = useSelector((state: any) => state.pageCreate);
     const { loading: loadingCreate, error: errorCreate, success } = pageCreate;
 
     const dispatch = useDispatch();
 
     const createHandler = () => {
-        const blocks = [{tag:'h2', html: "Untitle"}]
-
+        const blocks = [{tag:'p', html: "Untitle"}]
         dispatch(pageActions.create({blocks}) as any);
     }
 
     useEffect(() => {
+        const pageConstants = new constants('PAGE');
+        
         dispatch(pageActions.list() as any);
+
+        if(success){
+            dispatch({type: pageConstants.constants().CREATE_RESET})
+        }
     }, [dispatch, success])
+
     return (
         <div className="screen-documentation">
             {/* <Navigation />
@@ -47,12 +57,13 @@ const DocumentationScreen = () => {
             <h4>Pages</h4>
             <div className="pages">
 
+
                 {loading? <LoadingBox /> : (
                     <div>
                         {pages.map((page: any) => {
                             return (
 
-                              <div className="page-item" key={page._id} onClick={() => setPageSelected({_id: page._id, fetchedBlocks: page.blocks, err: "No Error"} )}>
+                              <div className="page-item" key={page._id} onClick={() => setPageSelected({_id: page._id, fetchedBlocks: page.blocks, err: error})}>
                               <i className='bx bx-file'></i>
                               <p className="page-title">{page.blocks[0].html}</p>
                               <div className="page-options"></div>
@@ -67,7 +78,7 @@ const DocumentationScreen = () => {
             <button onClick={() => createHandler()} className='new-page'><i className='bx bx-plus'></i> New page</button>
         </div>
         {pageSelected && (
-            <EditablePage id={pageSelected?._id || ""}  fetchedBlocks={pageSelected?.fetchedBlocks} err={pageSelected?.err} />
+            <EditablePage id={pageSelected?._id || ""} fetchedBlocks={pageSelected.fetchedBlocks} err={pageSelected?.err} />
         )}
         </div>
     )

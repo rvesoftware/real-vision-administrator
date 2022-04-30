@@ -93,7 +93,6 @@ const CalendarScreen = () => {
         dispatch(eventActions.list() as any);
     }, [dispatch, success])
 
-    console.log(events)
 
     return(
         <>

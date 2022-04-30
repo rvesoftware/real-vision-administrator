@@ -34,8 +34,6 @@ const ClientsScreen = () => {
     const dispatch = useDispatch();
 
     const deleteHandler = ({ _id, name }: Client) => {
-        console.log("Delete", name)
-        console.log("Delete ID", _id)
         dispatch(clientActions.delete(_id) as any)
     }
 
