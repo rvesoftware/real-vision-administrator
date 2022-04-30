@@ -64,12 +64,11 @@ const CalendarScreen = () => {
 
     return(
         <div className="page">
-
             <div className="page-header">
                 <div>
 
-                <h2>Calendar</h2>
-                <p>Your work calendar</p>
+                <h2 className="screen-title">Calendar</h2>
+                <p className="screen-copy">Your work calendar</p>
                 </div>
                 <button className="btn">Add an Event</button>
             </div>

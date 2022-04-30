@@ -28,7 +28,7 @@ const TaskScreen = () => {
     const [openModal, setOpenModal] = useState(false)
     const [openModalTask, setOpenModalTask] = useState(false)
     const [tasks, setTasks] = useState<[]>();
-    const [teamImage, setTeamImage] = useState();
+    const [teamImage, setTeamImage] = useState("");
     const [teamId, setTeamId] = useState();
 
     const [title, setTitle] = useState("");
@@ -63,10 +63,16 @@ const TaskScreen = () => {
 
         const file = e.target.files[0];
         const bodyFormData = new FormData();
+        console.log(bodyFormData)
 
-        bodyFormData.append("file", file);
+        bodyFormData.append('file', file);
+
+        for (var key of bodyFormData.entries()) {
+            console.log(key[0] + ', ' + key[1]);
+        }
         try {
             dispatch({ type: "UPLOAD_REQUEST" });
+
             const { data } = await axios.post("http://localhost:4500/upload-image", bodyFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -78,6 +84,8 @@ const TaskScreen = () => {
             console.log(err)
         }
     }
+
+    console.log(teamImage)
 
     useEffect(() => {
         dispatch(teamActions.list() as any);
@@ -125,6 +133,7 @@ const TaskScreen = () => {
                             </div>
                             <div className="modal-inputs">
                                 <input type="text" placeholder="Title" name="" id="" onChange={(e) => setTitle(e.target.value)} />
+                                <input type="file" name="file" id="file" onChange={(e) => uploadHandler(e, "featuredImage")} />
                             </div>
                             <button className="btn-success" onClick={createTeam}>Crear</button>
                         </div>

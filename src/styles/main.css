@@ -252,8 +252,9 @@ p{
 .modal-inputs select{
   border: none;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   font-size: 1.4rem;
+  padding: 1rem;
 }
 
 .modal-inputs textarea{
@@ -261,8 +262,10 @@ p{
   width: 100%;
   /* height: 3rem; */
   outline: none;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin: 2rem 0;
+  padding: 1rem;
+  background-color: transparent;
 }
 
 .btn-success{
@@ -273,4 +276,73 @@ p{
   border-radius: .2rem;
   height: 3rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+}
+
+.page-header > div:last-child{
+  display: flex;
+}
+
+.form-input{
+  display: flex;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 2rem;
+}
+
+.form-input input{
+  border: 1px solid rgba(0, 0, 0, .5);
+  border-radius: .3rem;
+  width: 100%;
+}
+
+.form-input select{
+  border: 1px solid rgba(0, 0, 0, .5);
+  border-radius: .3rem;
+  width: 100%;
+  height: 4rem;
+  background-color: transparent;
+}
+
+.form-input i{
+  font-size: 2.2rem;
+  color: rgba(0, 0, 0, .7);
+  padding: 1rem;
+}
+
+.page-content form{
+  padding: 2rem;
+}
+
+.page-content form textarea{
+  width: 100%;
+  padding: 1rem;
+}
+
+.form-group{
+  display: flex;
+  align-items: center;
+}
+
+.form-input.start{
+  align-items: flex-start;
+}
+
+.mx-h{
+  width: 100%;
+}
+
+.list-image{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.list-image img{
+  max-width: 3rem;
+}
+
+.btn-none{
+  background-color: transparent;
+  border: none;
+  color: rgba(0, 0, 0, .8);
 }

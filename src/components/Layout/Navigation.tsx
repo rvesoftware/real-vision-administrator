@@ -27,6 +27,8 @@ const Navigation = () => {
             <details>
                 <summary>HARDWARE <i className='bx bx-chevron-down' ></i></summary>
                 <div className='navigation-list'>
+                <Link to="/brands"><i className='bx bx-bracket'></i> Brands</Link>
+                <Link to="/categories"><i className='bx bx-category'></i> Categories</Link>
                 <Link to="/products"><i className='bx bxl-product-hunt'></i> Products</Link>
             <Link to="/computers"><i className='bx bx-desktop' ></i> Computers</Link>
             <Link to="/clients"><i className='bx bxs-user-badge'></i> Clients</Link>

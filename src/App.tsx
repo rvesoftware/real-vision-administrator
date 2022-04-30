@@ -9,6 +9,9 @@ import HomeScreen from './Screens/HomeScreen'
 import TaskScreen from './Screens/Enterprise/Task/TaskScreen'
 import ProductsScreen from './Screens/Hardware/ProductsScreen'
 import EmployesScreen from './Screens/Management/EmployesScreen'
+import CreateProductScreen from './Screens/Hardware/CreateProductScreen'
+import CategoriesScreen from './Screens/Hardware/CategoriesScreen'
+import BrandsScreen from './Screens/Hardware/BrandsScreen'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,7 +24,10 @@ function App() {
             <Route path='/' element={<HomeScreen />} />
             <Route path='/clients' element={<ClientsScreen />} />
             <Route path='/employes' element={<EmployesScreen />} />
+            <Route path='/brands' element={<BrandsScreen />} />
+            <Route path='/categories' element={<CategoriesScreen />} />
             <Route path='/products' element={<ProductsScreen />} />
+            <Route path='/create-product' element={<CreateProductScreen />} />  
             <Route path='/task' element={<TaskScreen />} />
             <Route path='/documentation' element={<DocumentationScreen />} />
             <Route path='/calendar' element={<CalendarScreen />} />

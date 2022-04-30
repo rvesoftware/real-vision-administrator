@@ -4,12 +4,24 @@ import productReducer from "./reducers/productReducer";
 import * as RR from 'react-redux';
 import teamReducer from "./reducers/teamReducer";
 import { uploadReducer } from "./reducers/uploadReducer";
+import categoryReducer from "./reducers/categoryReducer";
+import brandReducer from "./reducers/brandReducer";
 
 const initialState = {
 
 }
 
 const reducer = combineReducers({
+    brandList  : brandReducer.listReducer,
+    brandCreate: brandReducer.createReducer,
+    brandUpdate: brandReducer.updateReducer,
+    brandDelete: brandReducer.deleteReducer,
+
+    categoryList  : categoryReducer.listReducer,
+    categoryCreate: categoryReducer.createReducer,
+    categoryUpdate: categoryReducer.updateReducer,
+    categoryDelete: categoryReducer.deleteReducer,
+
     productList: productReducer.listReducer,
     productCreate: productReducer.createReducer,
     productUpdate: productReducer.updateReducer,

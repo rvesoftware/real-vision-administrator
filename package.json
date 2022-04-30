@@ -12,8 +12,11 @@
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-big-calendar": "^0.38.0",
     "@types/react-redux": "^7.1.24",
+    "@types/react-timeago": "^4.1.3",
+    "@types/timeago": "^1.6.0",
     "axios": "^0.26.1",
     "date-fns": "^2.28.0",
+    "instagram-account-info": "^1.0.1",
     "match-sorter": "^6.3.1",
     "react": "^18.0.0",
     "react-beautiful-dnd": "^13.1.0",
@@ -24,9 +27,11 @@
     "react-redux": "^8.0.1",
     "react-redux-typed-hooks": "^1.0.1",
     "react-router-dom": "^6.3.0",
+    "react-timeago": "^6.2.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
-    "timeago": "^1.6.7"
+    "timeago": "^1.6.7",
+    "use-instagram-account-info": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
