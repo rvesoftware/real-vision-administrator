@@ -93,6 +93,7 @@ export default class actionsTemplate{
     }
 
     update = (props: any) => async(dispatch: any) => {
+        console.log(props.blocks)
         dispatch({ type: this.UPDATE_REQUEST, payload: { props } });
         try {
           const { data } = await Axios.put(`${this.URL}/${this.api}/${props._id}`, { props });

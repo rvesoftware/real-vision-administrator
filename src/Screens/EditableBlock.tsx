@@ -25,11 +25,16 @@ const EditableBlock = (props: Props) => {
     const [selectMenuPosition, setSelectMenuPosition] = useState({x: null, y:null});
 
     const addPlaceholderHandler = ({block, content, position} : any) => {
+
+        console.log(block)
+        console.log(content)
+        console.log(position)
+
         const isFirstBlockWithout = position === 1 && !content;
         const isFirstBlockWithoutSibling = !block?.parentElement?.nextElementSibling;
         if(isFirstBlockWithout && isFirstBlockWithoutSibling) {
             setHtml("Untitled");
-            setTag("h1");
+            setTag("h2");
             setPlaceholder(true);
             return true;
         }else{
@@ -96,6 +101,7 @@ const EditableBlock = (props: Props) => {
         <ContentEditable 
             innerRef={() => contentEditable}
             data-position={props.position}
+            data-tag={tag}
             className={["block", placeholder? " placeholder": ""].join("")}
             html={html}
             tagName={tag}

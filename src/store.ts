@@ -7,6 +7,8 @@ import { uploadReducer } from "./reducers/uploadReducer";
 import categoryReducer from "./reducers/categoryReducer";
 import brandReducer from "./reducers/brandReducer";
 import clientReducer from "./reducers/clientReducer";
+import eventReducer from "./reducers/eventReducer";
+import pageReducer from "./reducers/pageReducer";
 
 const initialState = {
 
@@ -37,6 +39,18 @@ const reducer = combineReducers({
     teamCreate: teamReducer.createReducer,
     teamUpdate: teamReducer.updateReducer,
     teamDelete: teamReducer.deleteReducer,
+
+    eventList  : eventReducer.listReducer,
+    eventCreate: eventReducer.createReducer,
+    eventUpdate: eventReducer.updateReducer,
+    eventDelete: eventReducer.deleteReducer,
+
+    pageList  : pageReducer.listReducer,
+    pageOne  : pageReducer.oneReducer,
+    pageCreate: pageReducer.createReducer,
+    pageUpdate: pageReducer.updateReducer,
+    pageDelete: pageReducer.deleteReducer,
+
 
     uploadImage: uploadReducer,
 
