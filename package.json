@@ -28,6 +28,7 @@
     "react-redux-typed-hooks": "^1.0.1",
     "react-router-dom": "^6.3.0",
     "react-timeago": "^6.2.1",
+    "react-to-print": "^2.14.7",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "timeago": "^1.6.7",

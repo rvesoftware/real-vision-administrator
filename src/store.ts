@@ -6,6 +6,7 @@ import teamReducer from "./reducers/teamReducer";
 import { uploadReducer } from "./reducers/uploadReducer";
 import categoryReducer from "./reducers/categoryReducer";
 import brandReducer from "./reducers/brandReducer";
+import clientReducer from "./reducers/clientReducer";
 
 const initialState = {
 
@@ -26,6 +27,11 @@ const reducer = combineReducers({
     productCreate: productReducer.createReducer,
     productUpdate: productReducer.updateReducer,
     productDelete: productReducer.deleteReducer,
+
+    clientList: clientReducer.listReducer,
+    clientCreate: clientReducer.createReducer,
+    clientUpdate: clientReducer.updateReducer,
+    clientDelete: clientReducer.deleteReducer,
 
     teamList  : teamReducer.listReducer,
     teamCreate: teamReducer.createReducer,

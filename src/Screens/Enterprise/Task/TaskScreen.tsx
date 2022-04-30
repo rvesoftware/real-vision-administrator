@@ -2,7 +2,6 @@ import List from "../../../components/Task/List";
 import TaskCard from "../../../components/Task/TaskCard";
 import '../../../styles/task.css'
 import { DragDropContext } from 'react-beautiful-dnd'
-import { uploadHandler } from "../../../hooks/uploadImage";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -11,6 +10,7 @@ import LoadingBox from "../../../components/LoadingBox";
 import teamActions from "../../../actions/teamActions";
 import { TasksProps } from "../../../types/TasksProps";
 import taskActions from "../../../actions/taskActions";
+import constants from "../../../constants/constantsTemplate";
 
 
 const TaskScreen = () => {
@@ -39,7 +39,7 @@ const TaskScreen = () => {
     const dispatch = useDispatch();
 
     const createTeam = () => {
-        dispatch(teamActions.create({ name }) as any);
+        dispatch(teamActions.create({ name, teamImage }) as any);
         setOpenModal(false);
     }
 
@@ -63,13 +63,9 @@ const TaskScreen = () => {
 
         const file = e.target.files[0];
         const bodyFormData = new FormData();
-        console.log(bodyFormData)
 
         bodyFormData.append('file', file);
 
-        for (var key of bodyFormData.entries()) {
-            console.log(key[0] + ', ' + key[1]);
-        }
         try {
             dispatch({ type: "UPLOAD_REQUEST" });
 
@@ -85,12 +81,14 @@ const TaskScreen = () => {
         }
     }
 
-    console.log(teamImage)
 
     useEffect(() => {
+        const teamConstants = new constants('TEAM');
+
         dispatch(teamActions.list() as any);
 
         if (success) {
+            teamConstants.constants().CREATE_RESET;
             setOpenModal(false);
         }
     }, [success])
@@ -132,7 +130,7 @@ const TaskScreen = () => {
                                 <button onClick={() => setOpenModal(false)} ><i className='bx bx-x' ></i></button>
                             </div>
                             <div className="modal-inputs">
-                                <input type="text" placeholder="Title" name="" id="" onChange={(e) => setTitle(e.target.value)} />
+                                <input type="text" placeholder="Name" name="" id="" onChange={(e) => setName(e.target.value)} />
                                 <input type="file" name="file" id="file" onChange={(e) => uploadHandler(e, "featuredImage")} />
                             </div>
                             <button className="btn-success" onClick={createTeam}>Crear</button>

@@ -346,3 +346,29 @@ p{
   border: none;
   color: rgba(0, 0, 0, .8);
 }
+
+.print-screen{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.print-screen table th{
+  text-align: center;
+  
+}
+
+.print-screen table{
+  text-align: center;
+
+}
+
+.print-screen .picture img{
+  filter: invert(1);
+  width: 50px;
+  margin-top: 5rem;
+}
+
+

@@ -112,7 +112,20 @@ const employes = [
         birthday: "23/04/1997",
         status: true,
     },
-    
+    {
+        name: "Jhonier",
+        middlename: "Stiven",
+        lastname: "Mosquera",
+        middlelastname: "Blandon",
+        identification: 1004010670,
+        username: "stiven",
+        position: "Art Director",
+        phone: 3195411910,
+        email: "quertuy14@hotmail.com",
+        location: "Medellin. Colombia",
+        birthday: "12/11/2001",
+        status: true,
+    },    
 ]
 
 const EmployesScreen = () => {
