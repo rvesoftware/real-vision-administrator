@@ -323,12 +323,18 @@ p{
 .form-group{
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .form-input.start{
   align-items: flex-start;
 }
 
+.form-icon{
+  width: 15px;
+  margin-right: 1rem;
+  margin-left: 1.5rem;
+}
 .mx-h{
   width: 100%;
 }

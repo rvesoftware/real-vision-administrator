@@ -1,0 +1,123 @@
+
+.calendar{
+    display: flex;
+}
+.navigation-calendar{
+
+}
+
+.screen-calendar{
+    width: 100vh;
+    left: 540px;
+    position: fixed;
+    width: calc(100% - 550px);
+    height: 90vh;
+}
+
+.grid-calendar{
+    display: grid;
+    /* justify-content: center; */
+    /* grid-auto-flow: dense; */
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    /* grid-auto-rows: 4rem; */
+    /* grid-auto-columns: 5rem; */
+    
+}
+
+.day{
+    border: 1px solid rgba(0, 0, 0, .1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem;
+}
+
+
+.current-day{
+    background-color:#1971EA;
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;
+    border-radius: 5rem;
+    text-align: center;
+    padding-top: .5rem;
+    color: #f2f6fa;
+    font-weight: 600;
+}
+
+.calendar-data{
+    padding: 1rem;
+}
+
+.calendar-data button{
+    font-size: 3.5rem;
+    margin-right: 2rem;
+    background-color: transparent;
+    border: none;
+}
+
+.calendar-today-btn{
+    margin: 1rem;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 0, 0, .2);
+    background-color: transparent;
+    font-size: 1.8rem;
+    color: rgba(0, 0, 0, .8);
+}
+
+.small-calendar-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 1rem;
+}
+
+.small-calendar-header button{
+    font-size: 2.5rem;
+}
+
+.small-calendar-data-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 1rem;
+}
+
+.small-calendar-data .small-data{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+}
+
+.small-data button{
+    background-color: transparent;
+    border: none;
+    margin-top: 1rem;
+    color: rgba(0, 0, 0, .8);
+}
+
+.current-day{
+    background-color:#1971EA;
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;
+    border-radius: 5rem;
+    text-align: center;
+    padding-top: .5rem;
+    color: #f2f6fa;
+    font-weight: 600;
+}
+
+.current-day span{
+    background-color:#1971EA;
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;
+    border-radius: 5rem;
+    text-align: center;
+    padding: .5rem;
+    color: #f2f6fa;
+    font-weight: 600;
+}

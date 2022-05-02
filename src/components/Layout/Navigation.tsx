@@ -27,11 +27,19 @@ const Navigation = () => {
             <details>
                 <summary>HARDWARE <i className='bx bx-chevron-down' ></i></summary>
                 <div className='navigation-list'>
-                <Link to="/brands"><i className='bx bx-bracket'></i> Brands</Link>
-                <Link to="/categories"><i className='bx bx-category'></i> Categories</Link>
-                <Link to="/products"><i className='bx bxl-product-hunt'></i> Products</Link>
-            <Link to="/computers"><i className='bx bx-desktop' ></i> Computers</Link>
-            <Link to="/clients"><i className='bx bxs-user-badge'></i> Clients</Link>
+                <Link to="/brands"><i className='bx bx-bracket'></i> Post</Link>
+                <Link to="/brands"><i className='bx bx-bracket'></i> Create Post</Link>
+                    <h3>PRODUCT</h3>
+                    <Link to="/brands"><i className='bx bx-bracket'></i> Brands</Link>
+                    <Link to="/categories"><i className='bx bx-category'></i> Categories</Link>
+                    <Link to="/products"><i className='bx bxl-product-hunt'></i> Products</Link>
+                    <Link to="/computers"><i className='bx bx-desktop' ></i> Computers</Link>
+                    <h3>CLEINTS</h3>
+                    <Link to="/clients"><i className='bx bxs-user-badge'></i> Clients</Link>
+                    <h3>QUOTE</h3>
+                    <Link to="/quotation"><i className='bx bx-desktop' ></i> Quote</Link>
+                    <Link to="/quotations"><i className='bx bx-desktop' ></i> Quotations</Link>
+                
                 </div>
 
             </details>

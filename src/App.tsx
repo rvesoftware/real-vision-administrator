@@ -13,30 +13,49 @@ import CreateProductScreen from './Screens/Hardware/CreateProductScreen'
 import CategoriesScreen from './Screens/Hardware/CategoriesScreen'
 import BrandsScreen from './Screens/Hardware/BrandsScreen'
 import CreateClientScreen from './Screens/Hardware/CreateClientScreen'
+import SigninScreen from './Screens/Login/SigninScreen'
+import ComputersScreen from './Screens/Hardware/ComputersScreen'
+import CreateComputerScreen from './Screens/Hardware/CreateComputerScreen'
 
 function App() {
   const [count, setCount] = useState(0)
 
+
+  const adminInfo = false;
   return (
     <BrowserRouter>
       <>
-        <Layout>
+        {adminInfo ? (
+
           <Routes>
-            <Route path='/' element={<HomeScreen />} />
-            <Route path='/clients' element={<ClientsScreen />} />
-            <Route path='/employes' element={<EmployesScreen />} />
-            <Route path='/brands' element={<BrandsScreen />} />
-            <Route path='/categories' element={<CategoriesScreen />} />
-            <Route path='/products' element={<ProductsScreen />} />
-            <Route path='/create-product' element={<CreateProductScreen />} />  
-            <Route path='/create-client' element={<CreateClientScreen />} />  
-            <Route path='/task' element={<TaskScreen />} />
-            <Route path='/documentation' element={<DocumentationScreen />} />
-            <Route path='/calendar' element={<CalendarScreen />} />
-          {/* <ClientsScreen /> */}
-          {/* <EditablePage /> */}
+            <Route path='/login' element={<SigninScreen />} />
           </Routes>
-        </Layout>
+        )
+
+          : (
+            <Layout>
+              <Routes>
+                <Route path='/' element={<HomeScreen />} />
+                <Route path='/clients' element={<ClientsScreen />} />
+                <Route path='/employes' element={<EmployesScreen />} />
+                <Route path='/brands' element={<BrandsScreen />} />
+                <Route path='/categories' element={<CategoriesScreen />} />
+                <Route path='/computers' element={<ComputersScreen />} />
+                <Route path='/create-computer' element={<CreateComputerScreen />} />
+                <Route path='/products' element={<ProductsScreen />} />
+                <Route path='/create-product' element={<CreateProductScreen />} />
+                <Route path='/create-client' element={<CreateClientScreen />} />
+                <Route path='/task' element={<TaskScreen />} />
+                <Route path='/documentation' element={<DocumentationScreen />} />
+                <Route path='/calendar' element={<CalendarScreen />} />
+                {/* <ClientsScreen /> */}
+                {/* <EditablePage /> */}
+              </Routes>
+            </Layout>
+          )}
+
+
+
 
       </>
     </BrowserRouter>

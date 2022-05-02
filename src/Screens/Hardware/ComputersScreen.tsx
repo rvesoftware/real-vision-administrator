@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import brandActions from "../../actions/brandActions";
 import categoryActions from "../../actions/categoryActions";
-import productActions from "../../actions/productActions";
+import computerActions from "../../actions/computerActions";
 import LoadingBox from "../../components/LoadingBox";
 import constants from "../../constants/constantsTemplate";
 import { DivisaFormater } from "../../utils/divisaFormater";
-const ProductsScreen = () => {
+const ComputersScreen = () => {
 
-    const productList = useSelector((state: any) => state.productList);
-    const { loading, error, data: products } = productList;
+    const computerList = useSelector((state: any) => state.computerList);
+    const { loading, error, data: computers } = computerList;
 
-    const productDelete = useSelector((state: any) => state.productDelete);
-    const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
+    const computerDelete = useSelector((state: any) => state.computerDelete);
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = computerDelete;
 
     const categoryList = useSelector((state: any) => state.categoryList);
     const { loading: loadingCategory, error: errorCategory, data: categories } = categoryList;
@@ -28,35 +28,33 @@ const ProductsScreen = () => {
 
     const dispatch = _useDispatch();
 
-    const deleteHandler = (product: any) => {
-        dispatch(productActions.delete(product._id) as any);
+    const deleteHandler = (computer: any) => {
+        dispatch(computerActions.delete(computer._id) as any);
     }
 
     useEffect(() => {
 
-        const productConstants = new constants('PRODUCT');
+        const computerConstants = new constants('COMPUTER');
 
         if(successDelete){
-            productConstants.constants().DELETE_RESET;
+            computerConstants.constants().DELETE_RESET;
         }
 
-        dispatch(productActions.list() as any);
+        dispatch(computerActions.list() as any);
         dispatch(categoryActions.list() as any);
         dispatch(brandActions.list() as any);
     }, [dispatch, successDelete])
-
-    console.log(categories)
     return (
         <>
 
             <div className="page">
                 <div className="page-header">
                     <div>
-                        <h2 className="screen-title">Products</h2>
-                        <p className="screen-copy">Products for the current period</p>
+                        <h2 className="screen-title">Computers</h2>
+                        <p className="screen-copy">Computers for the current period</p>
                     </div>
 
-                    <Link to="/create-product" className="btn"><span><i className='bx bx-plus'></i></span> <p>Add an product</p></Link>
+                    <Link to="/create-computer" className="btn"><span><i className='bx bx-plus'></i></span> <p>Add an computer</p></Link>
 
                 </div>
                 <div className="page-content">
@@ -68,8 +66,6 @@ const ProductsScreen = () => {
                                 <tr>
                                     <th><input type="checkbox" name="" id="" /></th>
                                     <th>Name</th>
-                                    <th>Brand</th>
-                                    <th>Category</th>
                                     <th>Price</th>
                                     <th>Wattage</th>
                                     <th>Created At</th>
@@ -78,14 +74,14 @@ const ProductsScreen = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((product: any) => (
-                                    <tr key={product._id}>
+                                {computers.map((computer: any) => (
+                                    <tr key={computer._id}>
                                         <td><input type="checkbox" name="" id="" /></td>
-                                        <td className="list-image"><img src={product.image} alt="" />{product.name}</td>
+                                        <td className="list-image"><img src={computer.image} alt="" />{computer.name}</td>
                                         
                                         {!loadingBrand && (
                                             <>
-                                                {brands.filter((brand: any) => brand._id == product.brand)
+                                                {brands.filter((brand: any) => brand._id == computer.brand)
                                                     .map((brand: any) => (
                                                         <td key={brand._id}>{brand.name}</td>
                                                     ))}
@@ -94,20 +90,20 @@ const ProductsScreen = () => {
                                         )}
                                         {!loadingCategory && (
                                             <>
-                                                {categories.filter((category: any) => category._id == product.category)
+                                                {categories.filter((category: any) => category._id == computer.category)
                                                     .map((category: any) => (
-                                                        <td className="list-image" key={category._id}><img src={category.icon} alt="" /> {category.name}</td>
+                                                        <td key={category._id}>{category.name}</td>
                                                     ))}
                                             </>
 
                                         )}
 
 
-                                        <td> {DivisaFormater(product.price)}</td>
-                                        <td>{product.wattage}W</td>
-                                        <td><TimeAgo date={product.createdAt} /></td>
-                                        <td ><span className={product.status ? "active" : "out"}>{product.status ? "Active" : "Out"}</span></td>
-                                        <td><i className='bx bx-pencil' ></i> <button className="btn-none" onClick={() => deleteHandler(product)}> <i className='bx bx-trash-alt' ></i></button> </td>
+                                        <td> {DivisaFormater(computer.price)}</td>
+                                        <td>{computer.wattage}W</td>
+                                        <td><TimeAgo date={computer.createdAt} /></td>
+                                        <td ><span className={computer.status ? "active" : "out"}>{computer.status ? "Active" : "Out"}</span></td>
+                                        <td><i className='bx bx-pencil' ></i> <button className="btn-none" onClick={() => deleteHandler(computer)}> <i className='bx bx-trash-alt' ></i></button> </td>
                                     </tr>
                                 ))}
                                 <tr>
@@ -121,7 +117,7 @@ const ProductsScreen = () => {
 
                 {!loading && (
                     <div className="page-footer">
-                        Row per page: 10 1-3 of {products.length}
+                        Row per page: 10 1-3 of {computers.length}
                     </div>
                 )}
             </div>
@@ -144,4 +140,4 @@ const ProductsScreen = () => {
     )
 }
 
-export default ProductsScreen;
+export default ComputersScreen;

@@ -9,6 +9,7 @@ import brandReducer from "./reducers/brandReducer";
 import clientReducer from "./reducers/clientReducer";
 import eventReducer from "./reducers/eventReducer";
 import pageReducer from "./reducers/pageReducer";
+import computerReducer from "./reducers/computerReducer";
 
 const initialState = {
 
@@ -29,6 +30,11 @@ const reducer = combineReducers({
     productCreate: productReducer.createReducer,
     productUpdate: productReducer.updateReducer,
     productDelete: productReducer.deleteReducer,
+
+    computerList:   computerReducer.listReducer,
+    computerCreate: computerReducer.createReducer,
+    computerUpdate: computerReducer.updateReducer,
+    computerDelete: computerReducer.deleteReducer,
 
     clientList: clientReducer.listReducer,
     clientCreate: clientReducer.createReducer,
