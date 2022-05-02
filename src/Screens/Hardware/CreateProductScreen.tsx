@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 import brandActions from "../../actions/brandActions";
 import categoryActions from "../../actions/categoryActions";
 import productActions from "../../actions/productActions";
+import constants from "../../constants/constantsTemplate";
 
 const CreateProductScreen = () => {
 
@@ -55,8 +57,14 @@ const CreateProductScreen = () => {
         dispatch(productActions.create({ name, brand, category, price, wattage, image, description }) as any);
     }
 
+    const navigate = useNavigate();
+
     useEffect(() => {
+        const productConstants = new constants('PRODUCT');
+
         if (success) {
+            productConstants.constants().CREATE_RESET;
+            navigate('/products');
         }
 
         dispatch(categoryActions.list() as any)

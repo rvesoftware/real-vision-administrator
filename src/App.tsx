@@ -16,6 +16,8 @@ import CreateClientScreen from './Screens/Hardware/CreateClientScreen'
 import SigninScreen from './Screens/Login/SigninScreen'
 import ComputersScreen from './Screens/Hardware/ComputersScreen'
 import CreateComputerScreen from './Screens/Hardware/CreateComputerScreen'
+import GamesScreen from './Screens/Hardware/GamesScreen'
+import InsigthsScreen from './Screens/Hardware/InsigthsScreen'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -40,6 +42,7 @@ function App() {
                 <Route path='/employes' element={<EmployesScreen />} />
                 <Route path='/brands' element={<BrandsScreen />} />
                 <Route path='/categories' element={<CategoriesScreen />} />
+                <Route path='/games' element={<GamesScreen />} />
                 <Route path='/computers' element={<ComputersScreen />} />
                 <Route path='/create-computer' element={<CreateComputerScreen />} />
                 <Route path='/products' element={<ProductsScreen />} />
@@ -48,6 +51,7 @@ function App() {
                 <Route path='/task' element={<TaskScreen />} />
                 <Route path='/documentation' element={<DocumentationScreen />} />
                 <Route path='/calendar' element={<CalendarScreen />} />
+                <Route path='/insigths' element={<InsigthsScreen />} />
                 {/* <ClientsScreen /> */}
                 {/* <EditablePage /> */}
               </Routes>

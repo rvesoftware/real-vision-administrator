@@ -10,6 +10,7 @@ import clientReducer from "./reducers/clientReducer";
 import eventReducer from "./reducers/eventReducer";
 import pageReducer from "./reducers/pageReducer";
 import computerReducer from "./reducers/computerReducer";
+import gameReducer from "./reducers/gameReducer";
 
 const initialState = {
 
@@ -25,6 +26,11 @@ const reducer = combineReducers({
     categoryCreate: categoryReducer.createReducer,
     categoryUpdate: categoryReducer.updateReducer,
     categoryDelete: categoryReducer.deleteReducer,
+
+    gameList  : gameReducer.listReducer,
+    gameCreate: gameReducer.createReducer,
+    gameUpdate: gameReducer.updateReducer,
+    gameDelete: gameReducer.deleteReducer,
 
     productList: productReducer.listReducer,
     productCreate: productReducer.createReducer,

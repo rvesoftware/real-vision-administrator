@@ -3,35 +3,35 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import TimeAgo from "react-timeago";
-import categoryActions from "../../actions/categoryActions";
+import gameActions from "../../actions/gameActions";
 import LoadingBox from "../../components/LoadingBox";
 import constants from "../../constants/constantsTemplate";
-import { Category } from "../../types/Category";
+import { Game } from "../../types/Game";
 
-const CategoriesScreen = () => {
+const GamesScreen = () => {
 
-    const categoryList = useSelector((state: any) => state.categoryList);
-    const { loading, error, data: categories } = categoryList;
+    const gameList = useSelector((state: any) => state.gameList);
+    const { loading, error, data: games } = gameList;
 
-    const categoryCreate = useSelector((state: any) => state.categoryCreate);
-    const { loading: loadingCreate, error: errorCreate, success } = categoryCreate;
+    const gameCreate = useSelector((state: any) => state.gameCreate);
+    const { loading: loadingCreate, error: errorCreate, success } = gameCreate;
 
-    const categoryUpdate = useSelector((state: any) => state.categoryUpdate);
-    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = categoryUpdate;
+    const gameUpdate = useSelector((state: any) => state.gameUpdate);
+    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = gameUpdate;
 
-    const categoryDelete = useSelector((state: any) => state.categoryDelete);
-    const { loading: loadingDelete, error: errorDelete, success: successDelete } = categoryDelete;
+    const gameDelete = useSelector((state: any) => state.gameDelete);
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = gameDelete;
 
     const [openModal, setOpenModal] = useState(false);
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
 
-    const [icon, setIcon] = useState("");
+    const [image, setImage] = useState("");
     const [name, setName] = useState("");
 
-    const [selectedCategory, setSelectedCategory] = useState<Category>();
+    const [selectedGame, setSelectedGame] = useState<Game>();
 
-    const [iconUpdate, setIconUpdate] = useState(selectedCategory?.icon);
-    const [nameUpdate, setNameUpdate] = useState(selectedCategory?.name);
+    const [imageUpdate, setImageUpdate] = useState(selectedGame?.image);
+    const [nameUpdate, setNameUpdate] = useState(selectedGame?.name);
 
 
     const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const CategoriesScreen = () => {
                 },
             });
             dispatch({ type: "UPLOAD_SUCCESS" });
-            setIcon(data.secure_url);
+            setImage(data.secure_url);
         } catch (err) {
             console.log(err)
         }
@@ -61,42 +61,42 @@ const CategoriesScreen = () => {
 
 
     const createCategory = () => {
-        dispatch(categoryActions.create({icon, name}) as any);
+        dispatch(gameActions.create({image, name}) as any);
     }
 
-    const deleteHandler = ({_id}: Category) => {
-        dispatch(categoryActions.delete(_id) as any)
+    const deleteHandler = ({_id}: Game) => {
+        dispatch(gameActions.delete(_id) as any)
     }
 
-    const updateStore = async (category: Category) => {
-        await setSelectedCategory(category);
-        await setNameUpdate(category?.name);
-        await setIconUpdate(category?.icon);
+    const updateStore = async (game: Game) => {
+        await setSelectedGame(game);
+        await setNameUpdate(game?.name);
+        await setImageUpdate(game?.image);
         await setOpenModalUpdate(true);
     }
     const updateHandler = () => {  
-        const categoryId = selectedCategory?._id;
-        dispatch(categoryActions.update({_id: categoryId, icon: iconUpdate, name: nameUpdate}) as any)
+        const categoryId = selectedGame?._id;
+        dispatch(gameActions.update({_id: categoryId, icon: imageUpdate, name: nameUpdate}) as any)
     }
     
 
     useEffect(() => {
-        const categoryConstants = new constants('GAME');
+        const gameConstants = new constants('GAME');
 
-        dispatch(categoryActions.list() as any);
+        dispatch(gameActions.list() as any);
 
         if(success){
-            dispatch({type: categoryConstants.constants().CREATE_RESET});
+            dispatch({type: gameConstants.constants().CREATE_RESET});
             setOpenModal(false);
         }
 
         if(successUpdate){
             setOpenModalUpdate(false);
-            dispatch({type: categoryConstants.constants().UPDATE_RESET});
+            dispatch({type: gameConstants.constants().UPDATE_RESET});
         }
 
         if(successDelete){
-            dispatch({type: categoryConstants.constants().DELETE_RESET});
+            dispatch({type: gameConstants.constants().DELETE_RESET});
         }
     }, [dispatch, success, successDelete, successUpdate])
     return (
@@ -105,11 +105,11 @@ const CategoriesScreen = () => {
             <div className="page">
                 <div className="page-header">
                     <div>
-                        <h2 className="screen-title">Categories</h2>
-                        <p className="screen-copy">Categories for the current period</p>
+                        <h2 className="screen-title">Games</h2>
+                        <p className="screen-copy">Games for the current period</p>
                     </div>
 
-                    <button className="btn" onClick={() => setOpenModal(true)}><span><i className='bx bx-plus'></i></span> <p>Add an category</p></button>
+                    <button className="btn" onClick={() => setOpenModal(true)}><span><i className='bx bx-plus'></i></span> <p>Add an game</p></button>
 
                 </div>
                 <div className="page-content">
@@ -126,12 +126,12 @@ const CategoriesScreen = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {categories.map(({_id, icon, name, createdAt} : Category) => (
+                                {games.map(({_id, image, name, createdAt} : Game) => (
                                     <tr key={_id}>
                                         <td><input type="checkbox" name="" id="" /></td>
-                                        <td className="list-image"><img src={icon} alt="" /> {name}</td>
+                                        <td className="list-image"><img src={image} alt="" /> {name}</td>
                                         <td><TimeAgo date={createdAt || ""} /></td>
-                                        <td> <button className="btn-none"onClick={() => updateStore({_id, icon, name, createdAt})} > <i className='bx bx-pencil' ></i></button>  <button className="btn-none" onClick={() => deleteHandler({_id, name})}> <i className='bx bx-trash-alt' ></i> </button></td>
+                                        <td> <button className="btn-none"onClick={() => updateStore({_id, image, name, createdAt})} > <i className='bx bx-pencil' ></i></button>  <button className="btn-none" onClick={() => deleteHandler({_id, name})}> <i className='bx bx-trash-alt' ></i> </button></td>
                                     </tr>
                                 ))}
                                 <tr>
@@ -145,7 +145,7 @@ const CategoriesScreen = () => {
 
                 {!loading && (
                     <div className="page-footer">
-                        Row per page: 10 1-3 of {categories.length}
+                        Row per page: 10 1-3 of {games.length}
                     </div>
                 )}
             </div>
@@ -158,9 +158,9 @@ const CategoriesScreen = () => {
             <button onClick={() => setOpenModal(false)} ><i className='bx bx-x' ></i></button>
         </div>
         <div className="modal-inputs">
-            <input type="text" placeholder="Name" name="" id="" value={name} onChange={(e) => setName(e.target.value.toUpperCase())} />
+            <input type="text" placeholder="Name" name="" id="" value={name} onChange={(e) => setName(e.target.value)} />
             <input type="file" name="" id="" onChange={(e) => uploadHandler(e, "featuredImage")} />
-            <img src={icon} alt="" />
+            <img src={image} alt="" />
         </div>
         <button className="btn-success" onClick={createCategory}>Crear</button>
     </div>
@@ -172,13 +172,13 @@ const CategoriesScreen = () => {
 <div className="modal">
     <div className="modal-content">
         <div className="modal-header">
-            <h2>Edit Category</h2>
+            <h2>Edit Game</h2>
             <button onClick={() => setOpenModalUpdate(false)} ><i className='bx bx-x' ></i></button>
         </div>
         <div className="modal-inputs">
             <input type="text" placeholder="Name" name="" id="" value={nameUpdate} onChange={(e) => setNameUpdate(e.target.value.toUpperCase())} />
             <input type="file" name="" id="" onChange={(e) => uploadHandler(e, "featuredImage")} />
-            <img src={iconUpdate} alt="" />
+            <img src={imageUpdate} alt="" />
         </div>
         <button className="btn-success" onClick={updateHandler}>Update</button>
     </div>
@@ -188,4 +188,4 @@ const CategoriesScreen = () => {
     )
 }
 
-export default CategoriesScreen;
+export default GamesScreen;

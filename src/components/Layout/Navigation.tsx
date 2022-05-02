@@ -32,6 +32,7 @@ const Navigation = () => {
                     <h3>PRODUCT</h3>
                     <Link to="/brands"><i className='bx bx-bracket'></i> Brands</Link>
                     <Link to="/categories"><i className='bx bx-category'></i> Categories</Link>
+                    <Link to="/games"><i className='bx bx-game'></i> Games</Link>
                     <Link to="/products"><i className='bx bxl-product-hunt'></i> Products</Link>
                     <Link to="/computers"><i className='bx bx-desktop' ></i> Computers</Link>
                     <h3>CLEINTS</h3>
@@ -58,10 +59,7 @@ const Navigation = () => {
             <details>
                 <summary>MARKETING <i className='bx bx-chevron-down' ></i></summary>
                 <div className='navigation-list'>
-            <Link to="/calendar"><i className='bx bx-calendar' ></i> Calendar</Link>
-
-                <Link to="/task"><i className='bx bx-task' ></i> Task</Link>
-                <Link to="/documentation"><i className='bx bx-file' ></i> Documentation</Link>
+            <Link to="/insigths"><i className='bx bx-calendar' ></i> Insgiths</Link>
                 </div>
 
             </details>

@@ -2,10 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import brandActions from "../../actions/brandActions";
 import categoryActions from "../../actions/categoryActions";
 import computerActions from "../../actions/computerActions";
+import gameActions from "../../actions/gameActions";
 import productActions from "../../actions/productActions";
+import constants from "../../constants/constantsTemplate";
 
 const CreateComputerScreen = () => {
 
@@ -18,6 +21,8 @@ const CreateComputerScreen = () => {
     const productList = useSelector((state: any) => state.productList);
     const { loading: loadingProducts, error: errorProduct, data: products } = productList;
 
+    const gameList = useSelector((state: any) => state.gameList);
+    const { loading: loadingGames, error: errorGames, data: games } = gameList;
 
     const brandList = useSelector((state: any) => state.brandList);
     const { loading: loadingBrand, error: errorBrand, data: brands } = brandList;
@@ -26,7 +31,7 @@ const CreateComputerScreen = () => {
     const [specs, setSpecs] = useState<any>([]);
     const [price, setPrice] = useState("");
     const [wattage, setWattage] = useState("");
-    const [games, setGames] = useState([]);
+    const [gamesComputer, setGamesComputer] = useState<any>([]);
     const [programs, setPrograms] = useState([]);
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
@@ -58,26 +63,37 @@ const CreateComputerScreen = () => {
     const createProductHandler = () => {
         setPrice(actualPrice);
         setWattage(actualWattage);
-        dispatch(computerActions.create({ name, price: actualPrice, wattage: actualWattage, image, specs, description }) as any);
+        dispatch(computerActions.create({ name, price: actualPrice, wattage: actualWattage, image, specs, description, games: gamesComputer }) as any);
     }
 
     const specsHandler = (product: any) => {
         setSpecs([...specs,  {name:product.name, price: product.price, category: product.category, image: product.image, wattage: product.wattage}]) 
     }
 
+    const gamesHandler = (game: any) => {
+        setGamesComputer([...gamesComputer, {name: game.name, image: game.image}])
+    }
+
     let actualPrice =specs.reduce((a: any, c: any) => Number(a) + Number(c.price) , 0);
     let actualWattage =specs.reduce((a: any, c: any) => Number(a) + Number(c.wattage) , 0);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
+        const computerConstants = new constants('COMPUTER');
+
         if (success) {
+            computerConstants.constants().CREATE_RESET;
+            navigate('/computers');
         }
 
         dispatch(categoryActions.list() as any)
         dispatch(productActions.list() as any)
         dispatch(brandActions.list() as any)
-    }, [success])
+        dispatch(gameActions.list() as any)
+    }, [dispatch, success])
 
-    console.log(wattage)
+    console.log(gamesComputer)
     return (
         <div className="page">
             <div className="page-header">
@@ -156,6 +172,27 @@ const CreateComputerScreen = () => {
                             <i className='bx bx-image-add' ></i>
                             <input type="file" onChange={(e) => uploadHandler(e, "featuredImage")} />
                         </div>
+                    </div>
+                    <div className="form-group">
+                        {!loadingGames && (
+
+                        <div className="form-input">
+                            <i className='bx bx-game'></i>
+                            <select name="" id="">
+                            <option value="">Select Games</option>
+                                {games.map((game: any) => (
+                                    <option onClick={() => gamesHandler(game)} value={game._id}>{game.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        )}
+
+                                    <div className="input-tags">
+                                        {gamesComputer.map((game:any) => (
+                                            <span>{game.name}</span>
+                                        ))}
+                                    </div>
+
                     </div>
                     <div className="form-input start mx-h">
                         <i className='bx bx-align-right' ></i>
