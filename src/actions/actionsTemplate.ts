@@ -55,8 +55,8 @@ export default class actionsTemplate{
 
         this.api = api;
 
-        // this.URL = "https://real-vision-api.herokuapp.com";
-        this.URL = "http://localhost:4500";
+        this.URL = "https://real-vision-api.herokuapp.com";
+        // this.URL = "http://localhost:4500";
     }
 
     list = () => async(dispatch: Dispatch) => {
