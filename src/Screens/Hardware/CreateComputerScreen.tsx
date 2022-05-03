@@ -53,7 +53,7 @@ const CreateComputerScreen = () => {
         try {
             dispatch({ type: "UPLOAD_REQUEST" });
 
-            const { data } = await axios.post("http://localhost:4500/upload-image", bodyFormData, {
+            const { data } = await axios.post("https://real-vision-api.herokuapp.com/upload-image", bodyFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
