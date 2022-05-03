@@ -45,7 +45,6 @@ const ProductsScreen = () => {
         dispatch(brandActions.list() as any);
     }, [dispatch, successDelete])
 
-    console.log(categories)
     return (
         <>
 

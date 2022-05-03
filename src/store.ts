@@ -11,6 +11,7 @@ import eventReducer from "./reducers/eventReducer";
 import pageReducer from "./reducers/pageReducer";
 import computerReducer from "./reducers/computerReducer";
 import gameReducer from "./reducers/gameReducer";
+import programReducer from "./reducers/programReducer";
 
 const initialState = {
 
@@ -31,6 +32,11 @@ const reducer = combineReducers({
     gameCreate: gameReducer.createReducer,
     gameUpdate: gameReducer.updateReducer,
     gameDelete: gameReducer.deleteReducer,
+
+    programList  : programReducer.listReducer,
+    programCreate: programReducer.createReducer,
+    programUpdate: programReducer.updateReducer,
+    programDelete: programReducer.deleteReducer,
 
     productList: productReducer.listReducer,
     productCreate: productReducer.createReducer,

@@ -33,6 +33,7 @@ const Navigation = () => {
                     <Link to="/brands"><i className='bx bx-bracket'></i> Brands</Link>
                     <Link to="/categories"><i className='bx bx-category'></i> Categories</Link>
                     <Link to="/games"><i className='bx bx-game'></i> Games</Link>
+                    <Link to="/programs"><i className='bx bx-color'></i> Programs</Link>
                     <Link to="/products"><i className='bx bxl-product-hunt'></i> Products</Link>
                     <Link to="/computers"><i className='bx bx-desktop' ></i> Computers</Link>
                     <h3>CLEINTS</h3>

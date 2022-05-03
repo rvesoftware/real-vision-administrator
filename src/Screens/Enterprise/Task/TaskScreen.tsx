@@ -46,6 +46,7 @@ const TaskScreen = () => {
     const createTask = () => {
         dispatch(taskActions.create({ id: teamId, title, priority, description, state }) as any);
         setOpenModalTask(false);
+        dispatch(teamActions.list() as any);
     }
 
     const listTasks = (tasks: any, id: any) => {
@@ -84,14 +85,14 @@ const TaskScreen = () => {
 
     useEffect(() => {
         const teamConstants = new constants('TEAM');
-
+        const taskConstants = new constants('TASK');
+        
         dispatch(teamActions.list() as any);
-
         if (success) {
             teamConstants.constants().CREATE_RESET;
             setOpenModal(false);
         }
-    }, [success])
+    }, [dispatch, success])
 
 
     return (

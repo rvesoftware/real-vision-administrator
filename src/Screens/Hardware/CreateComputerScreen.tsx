@@ -8,6 +8,7 @@ import categoryActions from "../../actions/categoryActions";
 import computerActions from "../../actions/computerActions";
 import gameActions from "../../actions/gameActions";
 import productActions from "../../actions/productActions";
+import programActions from "../../actions/programActions";
 import constants from "../../constants/constantsTemplate";
 
 const CreateComputerScreen = () => {
@@ -24,6 +25,9 @@ const CreateComputerScreen = () => {
     const gameList = useSelector((state: any) => state.gameList);
     const { loading: loadingGames, error: errorGames, data: games } = gameList;
 
+    const programList = useSelector((state: any) => state.programList);
+    const { loading: loadingPrograms, error: errorPrograms, data: programs } = programList;
+
     const brandList = useSelector((state: any) => state.brandList);
     const { loading: loadingBrand, error: errorBrand, data: brands } = brandList;
 
@@ -32,12 +36,13 @@ const CreateComputerScreen = () => {
     const [price, setPrice] = useState("");
     const [wattage, setWattage] = useState("");
     const [gamesComputer, setGamesComputer] = useState<any>([]);
-    const [programs, setPrograms] = useState([]);
+    const [programsComputer, setProgramsComputer] = useState<any>([]);
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
 
     const dispatch = useDispatch();
 
+    console.log(image)
     const uploadHandler = async (e: any, imageField = "image") => {
 
         const file = e.target.files[0];
@@ -63,7 +68,7 @@ const CreateComputerScreen = () => {
     const createProductHandler = () => {
         setPrice(actualPrice);
         setWattage(actualWattage);
-        dispatch(computerActions.create({ name, price: actualPrice, wattage: actualWattage, image, specs, description, games: gamesComputer }) as any);
+        dispatch(computerActions.create({ name, price: actualPrice, wattage: actualWattage, image, specs, description, games: gamesComputer, programs: programsComputer }) as any);
     }
 
     const specsHandler = (product: any) => {
@@ -72,6 +77,10 @@ const CreateComputerScreen = () => {
 
     const gamesHandler = (game: any) => {
         setGamesComputer([...gamesComputer, {name: game.name, image: game.image}])
+    }
+
+    const programsHandler = (program: any) => {
+        setProgramsComputer([...programsComputer, {name: program.name, image: program.image}])
     }
 
     let actualPrice =specs.reduce((a: any, c: any) => Number(a) + Number(c.price) , 0);
@@ -91,9 +100,10 @@ const CreateComputerScreen = () => {
         dispatch(productActions.list() as any)
         dispatch(brandActions.list() as any)
         dispatch(gameActions.list() as any)
+        dispatch(programActions.list() as any)
     }, [dispatch, success])
 
-    console.log(gamesComputer)
+    console.log(programsComputer)
     return (
         <div className="page">
             <div className="page-header">
@@ -190,6 +200,27 @@ const CreateComputerScreen = () => {
                                     <div className="input-tags">
                                         {gamesComputer.map((game:any) => (
                                             <span>{game.name}</span>
+                                        ))}
+                                    </div>
+
+                    </div>
+                    <div className="form-group">
+                        {!loadingPrograms && (
+
+                        <div className="form-input">
+                            <i className='bx bx-game'></i>
+                            <select name="" id="">
+                            <option value="">Select Programs</option>
+                                {programs.map((program: any) => (
+                                    <option onClick={() => programsHandler(program)} value={program._id}>{program.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        )}
+
+                                    <div className="input-tags">
+                                        {programsComputer.map((program:any) => (
+                                            <span>{program.name}</span>
                                         ))}
                                     </div>
 
