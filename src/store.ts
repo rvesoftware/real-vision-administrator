@@ -12,6 +12,7 @@ import pageReducer from "./reducers/pageReducer";
 import computerReducer from "./reducers/computerReducer";
 import gameReducer from "./reducers/gameReducer";
 import programReducer from "./reducers/programReducer";
+import taskReducer from "./reducers/taskReducer";
 
 const initialState = {
 
@@ -57,6 +58,12 @@ const reducer = combineReducers({
     teamCreate: teamReducer.createReducer,
     teamUpdate: teamReducer.updateReducer,
     teamDelete: teamReducer.deleteReducer,
+
+    taskList  : taskReducer.listReducer,
+    taskCreate: taskReducer.createReducer,
+    taskUpdate: taskReducer.updateReducer,
+    taskDelete: taskReducer.deleteReducer,
+
 
     eventList  : eventReducer.listReducer,
     eventCreate: eventReducer.createReducer,

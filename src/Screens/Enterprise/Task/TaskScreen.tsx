@@ -24,6 +24,9 @@ const TaskScreen = () => {
     const teamCreate = useSelector((state: any) => state.teamCreate);
     const { loading: loadingCreate, error: errorCreate, success } = teamCreate;
 
+    const taskCreate = useSelector((state: any) => state.taskCreate);
+    const { loading: loadingTask, error: errorTask, success: successTask } = taskCreate;
+
     const [name, setName] = useState('');
     const [openModal, setOpenModal] = useState(false)
     const [openModalTask, setOpenModalTask] = useState(false)
@@ -43,10 +46,12 @@ const TaskScreen = () => {
         setOpenModal(false);
     }
 
+    console.log(taskCreate)
+
     const createTask = () => {
         dispatch(taskActions.create({ id: teamId, title, priority, description, state }) as any);
         setOpenModalTask(false);
-        dispatch(teamActions.list() as any);
+        // dispatch(teamActions.list() as any);
     }
 
     const listTasks = (tasks: any, id: any) => {
@@ -82,17 +87,34 @@ const TaskScreen = () => {
         }
     }
 
+    console.log(successTask)
 
+
+    const newTask = async(taskConst:any) => {
+        console.log("Create")
+        dispatch({type: taskConst.constants().CREATE_RESET});
+        if(!loading){
+            console.log("ENTROOOO")
+            const t = teams.filter((te:any) => te._id == teamId);
+            listTasks(t[0].tasks, t[0]._id);
+            console.log(t[0]._id)
+        }
+    } 
     useEffect(() => {
         const teamConstants = new constants('TEAM');
         const taskConstants = new constants('TASK');
         
-        dispatch(teamActions.list() as any);
         if (success) {
-            teamConstants.constants().CREATE_RESET;
+            dispatch({type: teamConstants.constants().CREATE_RESET});
             setOpenModal(false);
         }
-    }, [dispatch, success])
+
+        if(successTask){
+            newTask(taskConstants)
+        }
+
+        dispatch(teamActions.list() as any);
+    }, [dispatch, success, successTask])
 
 
     return (
@@ -167,16 +189,28 @@ const TaskScreen = () => {
                                 ))}
                         </List>
                         <List id="list3" title="In Process">
-                            {/* <TaskCard id="ycabtrrd-3" index={33} /> */}
+                        {tasks?.filter(({ state }: TasksProps) => state === 2)
+                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                                ))}
                         </List>
                         <List id="list4" title="Sprint">
-                            {/* <TaskCard id="muicard-4" index={764} /> */}
+                        {tasks?.filter(({ state }: TasksProps) => state === 3)
+                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                                ))}
                         </List>
                         <List id="list5" title="Review">
-                            {/* <TaskCard id="ucangrd-5" index={534} /> */}
+                        {tasks?.filter(({ state }: TasksProps) => state === 4)
+                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                                ))}
                         </List>
                         <List id="list6" title="Finised">
-                            {/* <TaskCard id="fdvcagrd-6" index={396} /> */}
+                        {tasks?.filter(({ state }: TasksProps) => state === 5)
+                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                                ))}
                         </List>
                     </div>
                 </DragDropContext>
