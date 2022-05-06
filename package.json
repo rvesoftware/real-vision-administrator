@@ -37,6 +37,7 @@
     "react-to-print": "^2.14.7",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "sweetalert": "^2.1.2",
     "timeago": "^1.6.7",
     "use-instagram-account-info": "^1.0.0"
   },

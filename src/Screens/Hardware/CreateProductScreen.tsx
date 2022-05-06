@@ -63,7 +63,7 @@ const CreateProductScreen = () => {
         const productConstants = new constants('PRODUCT');
 
         if (success) {
-            productConstants.constants().CREATE_RESET;
+            dispatch({type: productConstants.constants().CREATE_RESET});
             navigate('/products');
         }
 

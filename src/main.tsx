@@ -6,6 +6,7 @@ import store from './store'
 import './styles/main.css'
 import './styles/table.css'
 import './styles/calendar.css'
+import './styles/quote.css'
 import ContextWrapper from './context/ContextWrapper'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

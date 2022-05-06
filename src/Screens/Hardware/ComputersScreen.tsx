@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch as _useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
@@ -9,6 +9,8 @@ import computerActions from "../../actions/computerActions";
 import LoadingBox from "../../components/LoadingBox";
 import constants from "../../constants/constantsTemplate";
 import { DivisaFormater } from "../../utils/divisaFormater";
+import swal from "sweetalert";
+
 const ComputersScreen = () => {
 
     const computerList = useSelector((state: any) => state.computerList);
@@ -26,24 +28,36 @@ const ComputersScreen = () => {
 
     const [openModal, setOpenModal] = useState(false);
 
-    const dispatch = _useDispatch();
+    const dispatch = useDispatch();
 
     const deleteHandler = (computer: any) => {
+        swal("Are you sure to delete " + computer.name + "?", {
+            icon: "warning",
+            buttons: ["Obviously not", "Do that!"],
+            dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              swal("Poof! " + computer.name + " deleted", {
+                icon: "success",
+              });
         dispatch(computerActions.delete(computer._id) as any);
+
+            }
+          });
     }
 
     useEffect(() => {
-
         const computerConstants = new constants('COMPUTER');
 
         if(successDelete){
-            computerConstants.constants().DELETE_RESET;
+            dispatch({type: computerConstants.constants().DELETE_RESET});
         }
 
-        dispatch(computerActions.list() as any);
         dispatch(categoryActions.list() as any);
         dispatch(brandActions.list() as any);
-    }, [dispatch, successDelete])
+        dispatch(computerActions.list() as any);
+    }, [dispatch, successDelete]);
+
     return (
         <>
 
@@ -58,6 +72,7 @@ const ComputersScreen = () => {
 
                 </div>
                 <div className="page-content">
+                {loadingDelete && <LoadingBox></LoadingBox>}
 
                     {loading ? <LoadingBox /> : (
 

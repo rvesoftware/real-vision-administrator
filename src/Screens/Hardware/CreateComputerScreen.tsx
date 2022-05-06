@@ -92,7 +92,7 @@ const CreateComputerScreen = () => {
         const computerConstants = new constants('COMPUTER');
 
         if (success) {
-            computerConstants.constants().CREATE_RESET;
+            dispatch({type: computerConstants.constants().CREATE_RESET});
             navigate('/computers');
         }
 

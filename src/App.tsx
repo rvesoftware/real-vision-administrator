@@ -20,6 +20,7 @@ import GamesScreen from './Screens/Hardware/GamesScreen'
 import InsigthsScreen from './Screens/Hardware/InsigthsScreen'
 import ProgramsScreen from './Screens/Hardware/ProgramsScreen'
 import CreatePostScreen from './Screens/Hardware/CreatePostScreen'
+import QuoteScreen from './Screens/Hardware/QuoteScreen'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -52,6 +53,7 @@ function App() {
                 <Route path='/products' element={<ProductsScreen />} />
                 <Route path='/create-product' element={<CreateProductScreen />} />
                 <Route path='/create-client' element={<CreateClientScreen />} />
+                <Route path='/quote' element={<QuoteScreen />} />
                 <Route path='/task' element={<TaskScreen />} />
                 <Route path='/documentation' element={<DocumentationScreen />} />
                 <Route path='/calendar' element={<CalendarScreen />} />

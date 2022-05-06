@@ -1,0 +1,51 @@
+.quote-list{
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* gap: 2rem; */
+    /* padding: 2rem; */
+}
+
+.quote-list select{
+    /* height: 2rem; */
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    background: none;
+}
+
+.quote-list td{
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.quote-price{
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 250px);
+    height: 4rem;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, .1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 2rem;
+}
+
+.quote-price h2{
+    font-size: 3rem;
+}
+.quote-footer{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    text-align: left;
+    padding: 2rem 0;
+    padding: 2rem;
+}
+
+.quote-footer textarea{
+    width: 100%;
+    outline: none;
+    margin-top: 2rem;
+    padding: 1rem;
+    font-size: 1.6rem;
+}
