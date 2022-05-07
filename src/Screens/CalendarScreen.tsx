@@ -48,7 +48,7 @@ const CalendarScreen = () => {
     }
 
     const handleReset = () => {
-        setMonthIndex(monthIndex ===  dayjs().month()? monthIndex + Math.random() : dayjs().month());
+        setMonthIndex(monthIndex === dayjs().month() ? monthIndex + Math.random() : dayjs().month());
     }
 
     const eventList = useSelector((state: any) => state.eventList);
@@ -70,10 +70,9 @@ const CalendarScreen = () => {
 
     const dispatch = useDispatch();
 
-    console.log(daySelected?.valueOf())
 
     const createHandler = () => {
-        dispatch(eventActions.create({ title, description, day: daySelected?.valueOf(), label:selectedLabel }) as any)
+        dispatch(eventActions.create({ title, description, day: daySelected?.valueOf(), label: selectedLabel }) as any)
     }
 
     // SMALL CALENDAR
@@ -94,11 +93,11 @@ const CalendarScreen = () => {
         const nowDay = dayjs().format(format);
         const currDay = day.format(format);
         const slcDay = daySelected && daySelected.format(format);
-        if(nowDay === currDay){
+        if (nowDay === currDay) {
             return "current-day"
-        }else if(currDay === slcDay){
+        } else if (currDay === slcDay) {
             return "current-day-small"
-        }else{
+        } else {
             return ""
         }
     }
@@ -143,35 +142,35 @@ const CalendarScreen = () => {
         </div>
 )} */}
 
-        {openModal && (
+            {openModal && (
 
-<div className="modal">
-    <div className="modal-content">
-        <div className="modal-header">
-            <h2>Add Team</h2>
-            <button onClick={() => setOpenModal(false)} ><i className='bx bx-x' ></i></button>
-        </div>
-        <div className="modal-inputs">
-            <input type="text" placeholder="Name" name="" id="" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <p><i className='bx bx-time-five'></i> {daySelected?.format("dddd, MMMM DD")}</p>
-            <input type="text" placeholder="Add a description" name="" id="" onChange={(e) => setDescription(e.target.value)} />
-            <div className="labels">
-            <i className='bx bx-bookmark-alt'></i>
-                {
-                    labelsClasses.map((lblClass, i) => (
-                        <span key={i} className={`lbl bg-${lblClass}`} onClick={() => setSelectedLabel(lblClass)} >
-                            {selectedLabel === lblClass && (
-                                <i className='bx bx-check' ></i>
-                            )}
-                        </span>
-                    ))
-                }
-            </div>
-        </div>
-        <button className="btn-success" onClick={createHandler}>Create</button>
-    </div>
-</div>
-        )}
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h2>Add Team</h2>
+                            <button onClick={() => setOpenModal(false)} ><i className='bx bx-x' ></i></button>
+                        </div>
+                        <div className="modal-inputs">
+                            <input type="text" placeholder="Name" name="" id="" value={title} onChange={(e) => setTitle(e.target.value)} />
+                            <p><i className='bx bx-time-five'></i> {daySelected?.format("dddd, MMMM DD")}</p>
+                            <input type="text" placeholder="Add a description" name="" id="" onChange={(e) => setDescription(e.target.value)} />
+                            <div className="labels">
+                                <i className='bx bx-bookmark-alt'></i>
+                                {
+                                    labelsClasses.map((lblClass, i) => (
+                                        <span key={i} className={`lbl bg-${lblClass}`} onClick={() => setSelectedLabel(lblClass)} >
+                                            {selectedLabel === lblClass && (
+                                                <i className='bx bx-check' ></i>
+                                            )}
+                                        </span>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        <button className="btn-success" onClick={createHandler}>Create</button>
+                    </div>
+                </div>
+            )}
 
             <div className="calendar">
 
@@ -211,21 +210,21 @@ const CalendarScreen = () => {
 
                         <div className="small-calendar-data">
                             <div className="small-calendar-data-header">
-                            {currentMonthSmall[0].map((day: any, i:number) => (
-                                <span key={i}>{day.format('dd').charAt(0)}</span>
-                            ))}
+                                {currentMonthSmall[0].map((day: any, i: number) => (
+                                    <span key={i}>{day.format('dd').charAt(0)}</span>
+                                ))}
                             </div>
                             <div className="small-data">
 
-                            {currentMonthSmall.map((row: any, i:number) => (
-                                <React.Fragment key={i}>
-                                    {row.map((day:any, idx:number) => (
-                                        <button onClick={() => {setSmallCalendarMonth(currentMonthIdx); setDaySelected(day)}} className={`${getCurrentDayClassSmall(day)}`} key={idx}>
-                                            <span>{day.format('D')}</span>
-                                        </button>
-                                    ))}
-                                </React.Fragment>
-                            ))}
+                                {currentMonthSmall.map((row: any, i: number) => (
+                                    <React.Fragment key={i}>
+                                        {row.map((day: any, idx: number) => (
+                                            <button onClick={() => { setSmallCalendarMonth(currentMonthIdx); setDaySelected(day) }} className={`${getCurrentDayClassSmall(day)}`} key={idx}>
+                                                <span>{day.format('D')}</span>
+                                            </button>
+                                        ))}
+                                    </React.Fragment>
+                                ))}
                             </div>
 
                         </div>
@@ -236,18 +235,18 @@ const CalendarScreen = () => {
                     {currentMonth.map((row: any, i: number) => (
                         <React.Fragment key={i}>
                             {row.map((day: any, index: number) => (
-                                <div className="day" key={index} onClick={() => {setDaySelected(day); setOpenModal(true)}}>
+                                <div className="day" key={index} onClick={() => { setDaySelected(day); setOpenModal(true) }}>
                                     {i === 0 && (
                                         <p>{day.format("dddd")}</p>
                                     )}
 
                                     <p className={`${getCurrentDayClass(day)}`}>  {day.format("DD")}</p>
-                                    {!loading && events.filter((evt:any) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY") )
-                                    .map((evt:any, idx:any) => (
-                                        <div className={`event bg-${evt.label}`}>
-                                            {evt.title}
-                                        </div>
-                                    ) )}
+                                    {!loading && events.filter((evt: any) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY"))
+                                        .map((evt: any, idx: any) => (
+                                            <div className={`event bg-${evt.label}`}>
+                                                {evt.title}
+                                            </div>
+                                        ))}
                                 </div>
                             ))}
                         </React.Fragment>
