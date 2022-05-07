@@ -17,6 +17,10 @@
     border: 1px solid rgba(0, 0, 0, .1);
 }
 
+.quote-list input{
+    width: 100%;
+}
+
 .quote-price{
     position: fixed;
     bottom: 0;
@@ -27,10 +31,18 @@
     align-items: center;
     justify-content: flex-end;
     padding: 0 2rem;
+    gap: 2rem;
+    overflow: hidden;
 }
 
 .quote-price h2{
     font-size: 3rem;
+    height: 100;
+}
+
+.quote-price h2:first-child{
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    padding: 2rem;
 }
 .quote-footer{
     width: 100%;

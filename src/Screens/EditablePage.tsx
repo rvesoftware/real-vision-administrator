@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import pageActions from "../actions/pageActions";
 import LoadingBox from "../components/LoadingBox";
-import { uid } from "../utils/uid";
+import objectId from "../utils/uid";
 import usePrevious from "../utils/usePrevious";
 import EditableBlock from "./EditableBlock";
 
@@ -31,32 +31,41 @@ const EditablePage = ({ id, fetchedBlocks, err }: Props) => {
         );
       }
 
-      const initialBlock = { id: uid(), html: "", tag: "p" };
+    const initialBlock = { id: objectId(), html: "", tag: "p" };
 
     const pageOne = useSelector((state: any) => state.pageOne);
     const { loading, error, data: page } = pageOne;
     const dispatch = useDispatch();
 
 
-    const [blocks, setBlocks] = useState([initialBlock]);
-    const [newBlocks, setNewBlocks] = useState({});
+
+    console.log(fetchedBlocks)
+    console.log(id)
+    const [blocks, setBlocks] = useState(fetchedBlocks);
+    const [newBlocks, setNewBlocks] = useState(fetchedBlocks);
     const [currentBlockId, setCurrentBlockId] = useState<any>();
 
+    console.log(blocks)
     const prevBlocks: any = usePrevious(blocks);
+
+    useEffect(() => {
+        setBlocks(fetchedBlocks);
+        dispatch(pageActions.one(id) as any);
+    }, [dispatch, fetchedBlocks])
 
     useEffect(() => {
         const updatePageOnServer = async (blocks: any) => {
             try {
+                console.log("entro")
                 dispatch(pageActions.update({_id: id, blocks: blocks}) as any)
             } catch (err) {
                 console.log(err)
             }
         }
 
-        // if (prevBlocks && prevBlocks != blocks) {
-        //     console.log("HIRE")
-        //     updatePageOnServer(newBlocks);
-        // }
+        if (prevBlocks && prevBlocks != blocks) {
+            updatePageOnServer(blocks);
+        }
 
     }, [blocks, prevBlocks]);
 
@@ -73,41 +82,39 @@ const EditablePage = ({ id, fetchedBlocks, err }: Props) => {
             }
         }
 
-        // dispatch(pageActions.one(id) as any);
     }, [blocks, prevBlocks, currentBlockId])
 
 
-    const updateBlockHandler = (currentBlock: Block) => {
-        const index = blocks.map((b: any) => b.id).indexOf(currentBlock._id);
+
+
+    const updateBlockHandler = async (currentBlock: Block) => {
+        const index = blocks.map((b: any) => b._id).indexOf(currentBlock._id);
         const oldBlock = blocks[index];
         const updatedBlocks = [...blocks];
         updatedBlocks[index] = {...updatedBlocks[index], tag: currentBlock.tag, html: currentBlock.html }
-        console.log("THIS IS UPDATED", updatedBlocks)
-        setNewBlocks(updatedBlocks);
-        console.log("UPDATE BLOCKS", newBlocks)
+        await setBlocks(updatedBlocks)
+        // setNewBlocks([...updatedBlocks]);
     }
 
 
 
-    const addBlockHandler = (currentBlock: any) => {
+    const addBlockHandler = (currentBlock: Block) => {
         setCurrentBlockId(currentBlock._id);
-        const index = blocks.map((b: any) => b.id).indexOf(currentBlock.id);
+        const index = blocks.map((b: Block) => b._id).indexOf(currentBlock._id);
         const updatedBlocks = [...blocks];
-        const newBlock: any = {html: "", tag: "h1" };
+        const newBlock: any = {_id: objectId(), html: "", tag: "p" };
         updatedBlocks.splice(index + 1, 0, newBlock)
         updatedBlocks[index] = { ...updatedBlocks[index], tag: currentBlock.tag, html: currentBlock.html }
         setBlocks(updatedBlocks);
     }
 
-
-
     return (
         <div className="page">
 
-            {loading ? <LoadingBox /> : (
-                <>
-                    {blocks.map((block: any) => {
-                        const position = blocks.map((b:any) => b._id).indexOf(block._id) + 1;
+            
+            
+                    {blocks?.map((block: Block) => {
+                        const position = blocks.map((b:Block) => b._id).indexOf(block._id) + 1;
                         return (
                             <EditableBlock
                                 key={block._id}
@@ -122,8 +129,6 @@ const EditablePage = ({ id, fetchedBlocks, err }: Props) => {
 
                     })}
 
-                </>
-            )}
 
 
         </div>

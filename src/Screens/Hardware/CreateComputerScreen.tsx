@@ -84,7 +84,7 @@ const CreateComputerScreen = () => {
     }
 
     let actualPrice =specs.reduce((a: any, c: any) => Number(a) + Number(c.price) , 0);
-    let actualWattage =specs.reduce((a: any, c: any) => Number(a) + Number(c.wattage) , 0);
+    let actualWattage =specs.filter((s:any) => s.category != "626dd9b2cfc8d7c93ecd9ec3").reduce((a: any, c: any) => Number(a) + Number(c.wattage) , 0);
 
     const navigate = useNavigate();
 

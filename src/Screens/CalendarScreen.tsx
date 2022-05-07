@@ -28,8 +28,9 @@ const localizer = dateFnsLocalizer({
     locales
 })
 
-const CalendarScreen = () => {
+const labelsClasses = ["indigo", "gray", "green", "blue", "red", "purple"]
 
+const CalendarScreen = () => {
 
     const [currentMonth, setCurrentMonth] = useState(getMonth());
     const getCurrentDayClass = (day: any) => {
@@ -46,10 +47,8 @@ const CalendarScreen = () => {
         setMonthIndex(monthIndex + 1);
     }
 
-
-
     const handleReset = () => {
-        setMonthIndex(dayjs().month());
+        setMonthIndex(monthIndex ===  dayjs().month()? monthIndex + Math.random() : dayjs().month());
     }
 
     const eventList = useSelector((state: any) => state.eventList);
@@ -64,16 +63,22 @@ const CalendarScreen = () => {
     const [openModal, setOpenModal] = useState(false);
 
     const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [selectedLabel, setSelectedLabel] = useState(labelsClasses[0]);
     const [start, setStart] = useState("");
     const [end, setEnd] = useState("");
 
     const dispatch = useDispatch();
 
+    console.log(daySelected?.valueOf())
+
     const createHandler = () => {
-        dispatch(eventActions.create({ title, start, end }) as any)
+        dispatch(eventActions.create({ title, description, day: daySelected?.valueOf(), label:selectedLabel }) as any)
     }
 
-    const [currentMonthIdx, setCurrentMonthIdx] = useState(0);
+    // SMALL CALENDAR
+
+    const [currentMonthIdx, setCurrentMonthIdx] = useState(dayjs().month());
     const [currentMonthSmall, setCurrentMonthSmall] = useState(getMonth());
 
     const handlePrevMonthSmall = () => {
@@ -83,6 +88,21 @@ const CalendarScreen = () => {
     const handleNextMonthSmall = () => {
         setCurrentMonthIdx(currentMonthIdx + 1);
     }
+
+    const getCurrentDayClassSmall = (day: any) => {
+        const format = 'DD-MM-YY';
+        const nowDay = dayjs().format(format);
+        const currDay = day.format(format);
+        const slcDay = daySelected && daySelected.format(format);
+        if(nowDay === currDay){
+            return "current-day"
+        }else if(currDay === slcDay){
+            return "current-day-small"
+        }else{
+            return ""
+        }
+    }
+
 
     const getDay = () => {
         const format = "DD-MM-YY";
@@ -97,7 +117,10 @@ const CalendarScreen = () => {
 
         dispatch(eventActions.list() as any);
         setCurrentMonth(getMonth(monthIndex));
+        // setCurrentMonthIdx(monthIndex)
         setCurrentMonthSmall(getMonth(currentMonthIdx))
+
+        // const evnts = events.filter((evt) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")) 
     }, [dispatch, success, monthIndex, currentMonthIdx])
 
 
@@ -130,8 +153,20 @@ const CalendarScreen = () => {
         </div>
         <div className="modal-inputs">
             <input type="text" placeholder="Name" name="" id="" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <input type="date" placeholder="Date Start" name="" id=""  onChange={(e) => setStart(e.target.value)} />
-            <input type="date" placeholder="Date End" name="" id="" onChange={(e) => setEnd(e.target.value)} />
+            <p><i className='bx bx-time-five'></i> {daySelected?.format("dddd, MMMM DD")}</p>
+            <input type="text" placeholder="Add a description" name="" id="" onChange={(e) => setDescription(e.target.value)} />
+            <div className="labels">
+            <i className='bx bx-bookmark-alt'></i>
+                {
+                    labelsClasses.map((lblClass, i) => (
+                        <span key={i} className={`lbl bg-${lblClass}`} onClick={() => setSelectedLabel(lblClass)} >
+                            {selectedLabel === lblClass && (
+                                <i className='bx bx-check' ></i>
+                            )}
+                        </span>
+                    ))
+                }
+            </div>
         </div>
         <button className="btn-success" onClick={createHandler}>Create</button>
     </div>
@@ -176,9 +211,8 @@ const CalendarScreen = () => {
 
                         <div className="small-calendar-data">
                             <div className="small-calendar-data-header">
-
-                            {currentMonth[0].map((day: any, i:number) => (
-                                <span>{day.format('dd').charAt(0)}</span>
+                            {currentMonthSmall[0].map((day: any, i:number) => (
+                                <span key={i}>{day.format('dd').charAt(0)}</span>
                             ))}
                             </div>
                             <div className="small-data">
@@ -186,7 +220,7 @@ const CalendarScreen = () => {
                             {currentMonthSmall.map((row: any, i:number) => (
                                 <React.Fragment key={i}>
                                     {row.map((day:any, idx:number) => (
-                                        <button onClick={() => {setSmallCalendarMonth(currentMonthIdx); setDaySelected(day)}} className={`${getCurrentDayClass(day)}`} key={idx}>
+                                        <button onClick={() => {setSmallCalendarMonth(currentMonthIdx); setDaySelected(day)}} className={`${getCurrentDayClassSmall(day)}`} key={idx}>
                                             <span>{day.format('D')}</span>
                                         </button>
                                     ))}
@@ -196,34 +230,24 @@ const CalendarScreen = () => {
 
                         </div>
                     </div>
-                    {loading ? <LoadingBox /> : (
-
-                        <div className="teams-task-list">
-                            {/* {teams.map(({ _id, name, members, tasks }: any) => (
-                                    <div className="team-task-item" key={_id} onClick={() => listTasks(tasks, _id)}>
-                                        <i className='bx bx-code-alt' ></i>
-                                        <div>
-                                            <h3>{name}</h3>
-                                            <p>{members.length} members</p>
-                                        </div>
-                                    </div>
-                                ))} */}
-
-                        </div>
-                    )}
-
                 </div>
 
                 <div className="screen-calendar grid-calendar">
                     {currentMonth.map((row: any, i: number) => (
                         <React.Fragment key={i}>
                             {row.map((day: any, index: number) => (
-                                <div className="day" key={index}>
-
+                                <div className="day" key={index} onClick={() => {setDaySelected(day); setOpenModal(true)}}>
                                     {i === 0 && (
                                         <p>{day.format("dddd")}</p>
                                     )}
+
                                     <p className={`${getCurrentDayClass(day)}`}>  {day.format("DD")}</p>
+                                    {!loading && events.filter((evt:any) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY") )
+                                    .map((evt:any, idx:any) => (
+                                        <div className={`event bg-${evt.label}`}>
+                                            {evt.title}
+                                        </div>
+                                    ) )}
                                 </div>
                             ))}
                         </React.Fragment>

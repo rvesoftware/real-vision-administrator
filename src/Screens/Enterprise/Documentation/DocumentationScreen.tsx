@@ -30,9 +30,11 @@ const DocumentationScreen = () => {
     const dispatch = useDispatch();
 
     const createHandler = () => {
-        const blocks = [{tag:'p', html: "Untitle"}]
+        const blocks = [{tag:'h1', html: "Untitle"}]
         dispatch(pageActions.create({blocks}) as any);
     }
+
+    console.log(pageSelected)
 
     useEffect(() => {
         const pageConstants = new constants('PAGE');
@@ -61,9 +63,10 @@ const DocumentationScreen = () => {
                 {loading? <LoadingBox /> : (
                     <div>
                         {pages.map((page: any) => {
+                            
                             return (
 
-                              <div className="page-item" key={page._id} onClick={() => setPageSelected({_id: page._id, fetchedBlocks: page.blocks, err: error})}>
+                              <div className="page-item" key={page._id} onClick={() => {dispatch(pageActions.list() as any); setPageSelected({_id: page._id, fetchedBlocks: page.blocks, err: error})}}>
                               <i className='bx bx-file'></i>
                               <p className="page-title">{page.blocks[0].html}</p>
                               <div className="page-options"></div>

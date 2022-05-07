@@ -32,6 +32,7 @@
     flex-direction: column;
     height: 100%;
     padding: 2rem;
+    cursor: pointer;
 }
 
 
@@ -100,8 +101,8 @@
 
 .current-day{
     background-color:#1971EA;
-    height: 30px;
-    width: 30px;
+    height: 3rem;
+    width: 3rem;
     margin: 0 auto;
     border-radius: 5rem;
     text-align: center;
@@ -112,12 +113,78 @@
 
 .current-day span{
     background-color:#1971EA;
-    height: 30px;
-    width: 30px;
+    height: 3rem;
+    width: 3rem;
     margin: 0 auto;
     border-radius: 5rem;
     text-align: center;
     padding: .5rem;
     color: #f2f6fa;
     font-weight: 600;
+}
+
+.current-day-small span{
+    height: 3rem;
+    width: 3rem;
+    border-radius: 5rem;
+    text-align: center;
+    padding: .5rem;
+    background-color: #1970ea72;
+}
+
+.labels{
+    display: flex;
+    gap: 1rem;
+}
+
+.lbl{
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 5rem;
+    cursor: pointer;
+    font-size: 3rem;
+    color: #f2f6fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: .5;
+
+
+}
+
+.bg-indigo{
+    background-color: rgba(76, 0, 130, 0.589);
+}
+
+
+.bg-gray{
+    background-color: gray;
+}
+
+.bg-green{
+    background-color: green;
+}
+
+.bg-blue{
+    background-color: #1971EA;
+}
+
+
+.bg-red{
+    background-color: red;
+}
+
+.bg-purple{
+    background-color: purple;
+}
+
+.event{
+    width: 100%;
+    font-size: 1.4rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    color: #f2f6fa;
+    opacity: .5;
+    margin-bottom: 1rem;
 }

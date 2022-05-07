@@ -32,11 +32,13 @@ const EditableBlock = (props: Props) => {
             setHtml("Untitled");
             setTag("h1");
             setPlaceholder(true);
+            setIsTyping(false);
             return true;
         }else{
             return false;
         }
     }
+
     useEffect(() => {
         const hasPlaceholder = addPlaceholderHandler({
             block: contentEditable.current,
@@ -49,15 +51,16 @@ const EditableBlock = (props: Props) => {
             setTag(props.tag);
         }
 
-        // if((!isTyping && props.html != html) && !placeholder){
-        //     console.log("HERE")
-        // }
+        if((!isTyping && props.html != html) && !placeholder){
+        }
     }, [])
 
     const handleFocus = () => {
         if(placeholder){
             setHtml("");
             setPlaceholder(false);
+            setIsTyping(true);
+        }else{
             setIsTyping(true);
         }
     }
@@ -68,8 +71,8 @@ const EditableBlock = (props: Props) => {
 
         if(e.key === "Enter" && previosKey !== "Shift" ){
                 e.preventDefault();
-                // props.updateBlockHandler({_id: props.id, html: html, tag: tag})
-                props.addBlockHandler({html: html, tag: tag, ref: contentEditable.current});
+                props.updateBlockHandler({_id: props.id, html: html, tag: tag})
+                props.addBlockHandler({_id: props.id, html: html, tag: tag, ref: contentEditable.current});
         }
         // if(e.key === "Backspace" && !html){
         //     e.preventDefault();
