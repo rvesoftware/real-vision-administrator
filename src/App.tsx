@@ -23,6 +23,7 @@ import CreatePostScreen from './Screens/Hardware/CreatePostScreen'
 import QuoteScreen from './Screens/Hardware/QuoteScreen'
 import QuotationsScreen from './Screens/Hardware/QuotationsScreen'
 import { useSelector } from 'react-redux'
+import AdminRoute from './components/AdminRoute'
 
 function App() {
   
@@ -32,43 +33,34 @@ function App() {
   
   return (
     <BrowserRouter>
-      <>
-        {!adminInfo ? (
-
-          <Routes>
-            <Route path='/' element={<SigninScreen />} />
-          </Routes>
-        )
-
-          : (
-            <Layout>
+      <>  
               <Routes>
-                
-                <Route path='/' element={<HomeScreen />} />
-                <Route path='/clients' element={<ClientsScreen />} />
-                <Route path='/employes' element={<EmployesScreen />} />
-                <Route path='/create-post-hardware' element={<CreatePostScreen />} />
-                <Route path='/brands' element={<BrandsScreen />} />
-                <Route path='/categories' element={<CategoriesScreen />} />
-                <Route path='/games' element={<GamesScreen />} />
-                <Route path='/programs' element={<ProgramsScreen />} />
-                <Route path='/computers' element={<ComputersScreen />} />
-                <Route path='/create-computer' element={<CreateComputerScreen />} />
-                <Route path='/products' element={<ProductsScreen />} />
-                <Route path='/create-product' element={<CreateProductScreen />} />
-                <Route path='/create-client' element={<CreateClientScreen />} />
-                <Route path='/quote' element={<QuoteScreen />} />
-                <Route path='/quotations' element={<QuotationsScreen />} />
-                <Route path='/task' element={<TaskScreen />} />
-                <Route path='/documentation' element={<DocumentationScreen />} />
-                <Route path='/calendar' element={<CalendarScreen />} />
-                <Route path='/insigths' element={<InsigthsScreen />} />
-                {/* <ClientsScreen /> */}
-                {/* <EditablePage /> */}
-              </Routes>
-            </Layout>
-          )}
 
+                <Route path='/' element={<AdminRoute><Layout><HomeScreen /></Layout></AdminRoute>} />
+                <Route path='/signin' element={<SigninScreen />} />
+                <Route path='/clients' element={<AdminRoute><Layout><ClientsScreen /></Layout></AdminRoute>} />
+                <Route path='/employes' element={<AdminRoute><Layout><EmployesScreen /></Layout></AdminRoute>} />
+                <Route path='/create-post-hardware' element={<AdminRoute><Layout><CreatePostScreen /></Layout></AdminRoute>} />
+                <Route path='/brands' element={<AdminRoute><Layout><BrandsScreen /></Layout></AdminRoute>} />
+                <Route path='/categories' element={<AdminRoute><Layout><CategoriesScreen /></Layout></AdminRoute>} />
+                <Route path='/games' element={<AdminRoute><Layout><GamesScreen /></Layout></AdminRoute>} />
+                <Route path='/programs' element={<AdminRoute><Layout><ProgramsScreen /></Layout></AdminRoute>} />
+                <Route path='/computers' element={<AdminRoute><Layout><ComputersScreen /></Layout></AdminRoute>} />
+                <Route path='/create-computer' element={<AdminRoute><Layout><CreateComputerScreen /></Layout></AdminRoute>} />
+                <Route path='/products' element={<AdminRoute><Layout><ProductsScreen /></Layout></AdminRoute>} />
+                <Route path='/create-product' element={<AdminRoute><Layout><CreateProductScreen /></Layout></AdminRoute>} />
+                <Route path='/create-client' element={<AdminRoute><Layout><CreateClientScreen /></Layout></AdminRoute>} />
+                <Route path='/quote' element={<AdminRoute><Layout><QuoteScreen /></Layout></AdminRoute>} />
+                <Route path='/quotations' element={<AdminRoute><Layout><QuotationsScreen /></Layout></AdminRoute>} />
+                
+            
+                <Route path='/task' element={<AdminRoute><Layout><TaskScreen /> </Layout></AdminRoute>} />
+                <Route path='/documentation' element={<AdminRoute><Layout><DocumentationScreen /></Layout></AdminRoute>} />
+                <Route path='/calendar' element={<AdminRoute><Layout><CalendarScreen /></Layout></AdminRoute>} />
+                <Route path='/insigths' element={<AdminRoute><Layout><InsigthsScreen /></Layout></AdminRoute>} />
+              </Routes>
+            
+          
 
 
 

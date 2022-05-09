@@ -15,6 +15,7 @@ export const signin = (username:any, password:any) => async (dispatch:any) => {
       const { data } = await axios.post(`${URL}/admins`, { username, password });
 
       dispatch({ type: 'ADMIN_SIGNIN_SUCCESS', payload: data });
+      window.location.href = "/"
       localStorage.setItem('adminInfo', JSON.stringify(data));
     } catch (error:any) {
       dispatch({
