@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// this.URL = "https://real-vision-api.herokuapp.com";
-const URL = "http://localhost:4500";
+this.URL = "https://real-vision-api.herokuapp.com";
+// const URL = "http://localhost:4500";
 
 import constantsTemplate from '../constants/constantsTemplate.js'
 import actionsTemplate from './actionsTemplate.js'
