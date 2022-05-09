@@ -13,6 +13,7 @@ import computerReducer from "./reducers/computerReducer";
 import gameReducer from "./reducers/gameReducer";
 import programReducer from "./reducers/programReducer";
 import taskReducer from "./reducers/taskReducer";
+import quotationReducer from "./reducers/quotationReducer";
 
 const initialState = {
 
@@ -53,6 +54,13 @@ const reducer = combineReducers({
     clientCreate: clientReducer.createReducer,
     clientUpdate: clientReducer.updateReducer,
     clientDelete: clientReducer.deleteReducer,
+
+
+    quotationList  : quotationReducer.listReducer,
+    quotationCreate: quotationReducer.createReducer,
+    quotationUpdate: quotationReducer.updateReducer,
+    quotationDelete: quotationReducer.deleteReducer,
+
 
     teamList  : teamReducer.listReducer,
     teamCreate: teamReducer.createReducer,

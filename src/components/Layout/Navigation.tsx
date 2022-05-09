@@ -39,7 +39,7 @@ const Navigation = () => {
                     <h3>CLEINTS</h3>
                     <Link to="/clients"><i className='bx bxs-user-badge'></i> Clients</Link>
                     <h3>QUOTE</h3>
-                    <Link to="/quotation"><i className='bx bx-desktop' ></i> Quote</Link>
+                    <Link to="/quote"><i className='bx bx-desktop' ></i> Quote</Link>
                     <Link to="/quotations"><i className='bx bx-desktop' ></i> Quotations</Link>
                 
                 </div>

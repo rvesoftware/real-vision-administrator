@@ -1,7 +1,7 @@
 .navigation{
     position: fixed;
     height: 100%;
-    left: 25rem;
+    left: 18rem;
     top: 0;
     background-color: rgb(247, 246, 243);
     width: 25rem;
@@ -59,4 +59,17 @@ input{
     padding-left: .5rem;
     background-color: transparent;
     outline: none;
+}
+
+.page-title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.page-item button{
+    background-color: transparent;
+    border: none;
+    font-size: 1.7rem;
+    color: rgba(0, 0, 0, .6);
 }

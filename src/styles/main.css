@@ -24,7 +24,7 @@ body{
 
 main{
   position: fixed;
-  left: 25rem;
+  left: 18rem;
   transition: .5s;
   padding: 1rem 0;
   width: 100%;
@@ -65,6 +65,7 @@ a{
 button{
   cursor: pointer;
   color: #1971EA;
+  pointer-events: all;
 }
 
 
@@ -74,14 +75,14 @@ h1{
 
 h2{
   color: rgb(55, 53, 47);
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 p{
   font-weight: 300;
   margin-bottom: .5rem;
   background-color: transparent;
-  pointer-events: none;
+  /* pointer-events: none; */
 
 }
 
@@ -115,7 +116,7 @@ p{
 }
 
 .page{
-  width: calc(100% - 25rem);
+  width: calc(100% - 18rem);
   /* margin: 5rem auto; */
   margin-top: 1rem;
   /* margin-left: 30rem; */
@@ -161,7 +162,7 @@ p{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(100% - 25rem);
+  width: calc(100% - 18rem);
   height: 50vh;
   display: flex;
   flex-direction: column;
@@ -340,13 +341,14 @@ p{
 }
 
 .list-image{
-  display: flex;
-  align-items: center;
+  /* display: fslex; */
+  /* align-items: center; */
   gap: 1rem;
 }
 
 .list-image img{
   max-width: 3rem;
+  margin-right: 1rem;
 }
 
 .btn-none{

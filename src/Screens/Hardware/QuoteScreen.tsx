@@ -23,10 +23,12 @@ const QuoteScreen = () => {
     const [note, setNote] = useState(
         'Real Visión Enterprise garantiza a sus clientes el servicio de reparación sin costo por repuesto o mano de obra, por un periodo de 3 meses los cuales inician a partir de la fecha de compra del computador, de igual modo se le proporciona una garantía de 12 meses, la cual inicia a partir de la fecha de compra del equipo.'
       );
-      const [name, setName] = useState("Paulicio");
+      const [name, setName] = useState("");
       const [code, setCode] = useState(10057);
 
-    const specsHandler = (product: any) => {
+    const specsHandler = (e:any, product: any) => {
+        console.log(product)
+        e.preventDefault();
         const index = specs.findIndex((s:any) => s.category == product.category);
         console.log(index)
         if(index >= 0){
@@ -50,7 +52,7 @@ const QuoteScreen = () => {
 
     
     const createAndDownloadPdf = async() => {
-        const {data} = await axios.post('http://localhost:4500/create-pdf', {specs: [...specs], price: actualPrice, code:code, name: name}, {responseType: 'blob' });
+        const {data} = await axios.post('https://real-vision-api.herokuapp.com/create-pdf', {specs: [...specs], price: actualPrice, code:code, name: name}, {responseType: 'blob' });
         console.log(data)
         const pdfBlob = new Blob([data], {type: 'application/pdf'});
         const link = document.createElement('a')
@@ -92,6 +94,12 @@ const QuoteScreen = () => {
             </div>
 
             <div className="page-content">
+            <div className="quote-input">
+
+
+            <input type="text" placeholder='Client name' className='quote-input'onChange={(e) => setName(e.target.value)} />
+            <input type="text" value={code} className='quote-input' readOnly />
+            </div>
 
             <table>
                 <thead>
@@ -112,12 +120,12 @@ const QuoteScreen = () => {
                                 {!loadingProducts && (
                                     <>
                                         <td>
-                                            <select name="" id="">
+                                            <select name="" id="" onChange={(e) => specsHandler(e, JSON.parse(e.target.value)) }>
                                                 <option value="" onClick={(e) => removeSpecHandler(e, {category: category._id, name: 0, price: 0})} >{category.name}</option>
                                                 {products.filter((product: any) => product.category == category._id)
                                                     .map((product: any) => (
 
-                                                        <option key={product._id} value="" onClick={() => specsHandler(product)} >{product.name}</option>
+                                                        <option key={product._id}  value={JSON.stringify(product)} onClick={(e) => specsHandler(e, product)} >{product.name}</option>
                                                     ))}
                                             </select>
                                         </td>

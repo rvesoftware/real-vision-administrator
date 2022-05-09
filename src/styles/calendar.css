@@ -8,9 +8,9 @@
 
 .screen-calendar{
     width: 100vh;
-    left: 540px;
+    left: 450px;
     position: fixed;
-    width: calc(100% - 550px);
+    width: calc(100% - 460px);
     height: 90vh;
 }
 
@@ -28,11 +28,12 @@
 .day{
     border: 1px solid rgba(0, 0, 0, .1);
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* height: 100%; */
     padding: 2rem;
-    cursor: pointer;
+    /* cursor: pointer; */
+    z-index: -99;
 }
 
 
@@ -187,4 +188,10 @@
     color: #f2f6fa;
     opacity: .5;
     margin-bottom: 1rem;
+    z-index: 99999999999999999;
+    cursor: pointer;
+}
+
+.event:hover{
+     opacity: .3;
 }

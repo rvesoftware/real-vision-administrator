@@ -61,10 +61,10 @@ const CalendarScreen = () => {
     const [allEvents, setAllEvents] = useState<any[]>(events);
 
     const [openModal, setOpenModal] = useState(false);
-
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [selectedLabel, setSelectedLabel] = useState(labelsClasses[0]);
+    const [selectedEvent, setSelectedEvent] = useState<any>();
+    const [title, setTitle] = useState(selectedEvent? selectedEvent.title : "");
+    const [description, setDescription] = useState(selectedEvent? selectedEvent.description : "");
+    const [selectedLabel, setSelectedLabel] = useState(selectedEvent? selectedEvent.label : labelsClasses[0]);
     const [start, setStart] = useState("");
     const [end, setEnd] = useState("");
 
@@ -239,14 +239,16 @@ const CalendarScreen = () => {
                                     {i === 0 && (
                                         <p>{day.format("dddd")}</p>
                                     )}
+                                    <div>
 
                                     <p className={`${getCurrentDayClass(day)}`}>  {day.format("DD")}</p>
                                     {!loading && events.filter((evt: any) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY"))
                                         .map((evt: any, idx: any) => (
-                                            <div className={`event bg-${evt.label}`}>
+                                            <div key={idx} className={`event bg-${evt.label}`} onClick={() => setSelectedEvent(evt)}>
                                                 {evt.title}
                                             </div>
                                         ))}
+                                    </div>
                                 </div>
                             ))}
                         </React.Fragment>

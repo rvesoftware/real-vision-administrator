@@ -61,3 +61,13 @@
     padding: 1rem;
     font-size: 1.6rem;
 }
+
+.quote-input{
+    display: flex;
+    width: 100%;
+
+}
+.quote-input input{
+    border: 1px solid rgba(0, 0, 0, .1);
+    height: 5rem;
+}
