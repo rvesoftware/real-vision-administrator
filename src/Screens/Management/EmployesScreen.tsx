@@ -1,5 +1,9 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import adminActions from "../../actions/adminActions";
 
-const employes = [
+const employesOld = [
     {
         name: "Romis",
         middlename: "Javier",
@@ -125,10 +129,20 @@ const employes = [
         location: "Medellin. Colombia",
         birthday: "12/11/2001",
         status: true,
-    },    
+    },
 ]
 
 const EmployesScreen = () => {
+
+    const adminList = useSelector((state: any) => state.adminList);
+    const { loading, error, data: employes } = adminList;
+
+    const dispatch = useDispatch();
+
+    console.log(employes)
+    useEffect(() => {
+        dispatch(adminActions.list() as any);
+    }, [dispatch])
     return (
         <div className="page">
             <div className="page-header">
@@ -141,54 +155,61 @@ const EmployesScreen = () => {
                 <button className="btn"><span><i className='bx bx-plus'></i></span> <p>Add an employe</p></button>
 
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" name="" id="" /></th>
-                        <th>Name</th>
-                        <th>Middlename</th>
-                        <th>Lastname</th>
-                        <th>Middlelastname</th>
-                        <th>Identification</th>
-                        <th>Username</th>
-                        <th>Position</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Location</th>
-                        <th>Birthday</th>
-                        <th>Status</th>
-                        <th>To contact</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {employes.sort((a, b) => a.name.localeCompare(b.name))
-                    .map((employes) => (
-                        <tr key={employes.name}>
-                            <td><input type="checkbox" name="" id="" /></td>
-                            <td>{employes.name}</td>
-                            <td>{employes.middlename}</td>
-                            <td>{employes.lastname}</td>
-                            <td>{employes.middlelastname}</td>
-                            <td>{employes.identification}</td>
-                            <td>{employes.username}</td>
-                            <td>{employes.position}</td>
-                            <td>{employes.phone}</td>
-                            <td>{employes.email}</td>
-                            <td>{employes.location}</td>
-                            <td>{employes.birthday}</td>
-                            <td ><span className={employes.status? "active" : "out"}>{employes.status? "Active" : "Out"}</span></td>
-                            <td><i className='bx bxl-whatsapp'></i> <i className='bx bx-notepad' ></i><i className='bx bx-pencil' ></i> <i className='bx bx-trash-alt' ></i></td>
+
+            {!loading && (
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" name="" id="" /></th>
+                            <th>Name</th>
+                            <th>Middlename</th>
+                            <th>Lastname</th>
+                            <th>Middlelastname</th>
+                            <th>Identification</th>
+                            <th>Username</th>
+                            <th>Position</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Location</th>
+                            <th>Birthday</th>
+                            <th>Status</th>
+                            <th>To contact</th>
                         </tr>
-                    ))}
-                    <tr>
+                    </thead>
+                    <tbody>
+                        {employes.sort((a: any, b: any) => a.name.localeCompare(b.name))
+                            .map((employe: any) => (
+                                <tr key={employes.name}>
+                                    <td><input type="checkbox" name="" id="" /></td>
+                                    <td>{employe.name}</td>
+                                    <td>{employe.middlename}</td>
+                                    <td>{employe.lastname}</td>
+                                    <td>{employe.middlelastname}</td>
+                                    <td>{employe.identification}</td>
+                                    <td>{employe.username}</td>
+                                    <td>{employe.position}</td>
+                                    <td>{employe.phone}</td>
+                                    <td>{employe.email}</td>
+                                    <td>{employe.location}</td>
+                                    <td>{employe.birthday.substring(0, 10)}</td>
+                                    <td ><span className={employes.status ? "out" : "active"}>{employes.status ? "Out" : "Active"}</span></td>
+                                    <td> <i className='bx bx-notepad' ></i></td>
+                                </tr>
+                            ))}
+                        <tr>
 
-                    </tr>
-                </tbody>
-            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            )}
 
-            <div className="page-footer">
-             Row per page: 10 1-3 of {employes.length}
-            </div>
+            {!loading && (
+                <div className="page-footer">
+                    Row per page: 10 1-3 of {employes.length}
+                </div>
+            )}
+
         </div>
     )
 }

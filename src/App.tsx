@@ -22,25 +22,28 @@ import ProgramsScreen from './Screens/Hardware/ProgramsScreen'
 import CreatePostScreen from './Screens/Hardware/CreatePostScreen'
 import QuoteScreen from './Screens/Hardware/QuoteScreen'
 import QuotationsScreen from './Screens/Hardware/QuotationsScreen'
+import { useSelector } from 'react-redux'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-
-  const adminInfo = false;
+  
+  
+  const adminSignin = useSelector((state:any) => state.adminSignin);
+  const {adminInfo, loading, error} = adminSignin;
+  
   return (
     <BrowserRouter>
       <>
-        {adminInfo ? (
+        {!adminInfo ? (
 
           <Routes>
-            <Route path='/login' element={<SigninScreen />} />
+            <Route path='/' element={<SigninScreen />} />
           </Routes>
         )
 
           : (
             <Layout>
               <Routes>
+                
                 <Route path='/' element={<HomeScreen />} />
                 <Route path='/clients' element={<ClientsScreen />} />
                 <Route path='/employes' element={<EmployesScreen />} />

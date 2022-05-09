@@ -11,6 +11,7 @@ import teamActions from "../../../actions/teamActions";
 import { TasksProps } from "../../../types/TasksProps";
 import taskActions from "../../../actions/taskActions";
 import constants from "../../../constants/constantsTemplate";
+import adminActions from "../../../actions/adminActions";
 
 
 const TaskScreen = () => {
@@ -20,6 +21,10 @@ const TaskScreen = () => {
 
     const teamList = useSelector((state: any) => state.teamList);
     const { loading, error, data: teams } = teamList;
+
+    const adminList = useSelector((state: any) => state.adminList);
+    const { loading: loadingAdmin, error: errorAdmin, data: admins } = adminList;
+
 
     const teamCreate = useSelector((state: any) => state.teamCreate);
     const { loading: loadingCreate, error: errorCreate, success } = teamCreate;
@@ -35,22 +40,25 @@ const TaskScreen = () => {
     const [teamId, setTeamId] = useState();
 
     const [title, setTitle] = useState("");
-    const [priority, setPriority] = useState("");
+    const [priority, setPriority] = useState("Delayed");
     const [description, setDescription] = useState("");
-    const [state, setState] = useState("");
+    const [state, setState] = useState(0);
+    const [users, setUsers] = useState<any>([]);
+
 
     const dispatch = useDispatch();
 
-    const createTeam = () => {
-        dispatch(teamActions.create({ name, teamImage }) as any);
+    const createTeam = (e: any) => {
+        e.preventDefault();
+        dispatch(teamActions.create({ name, image: teamImage }) as any);
         setOpenModal(false);
     }
 
-    console.log(taskCreate)
-
-    const createTask = () => {
-        dispatch(taskActions.create({ id: teamId, title, priority, description, state }) as any);
+    const createTask = (e: any) => {
+        e.preventDefault();
+        dispatch(taskActions.create({ id: teamId, title, priority, description, state, owners: users}) as any);
         setOpenModalTask(false);
+        dispatch(teamActions.list() as any);
         // dispatch(teamActions.list() as any);
     }
 
@@ -87,33 +95,44 @@ const TaskScreen = () => {
         }
     }
 
-    console.log(successTask)
-
-
-    const newTask = async(taskConst:any) => {
+    const newTask = (taskConst: any) => {
         console.log("Create")
-        dispatch({type: taskConst.constants().CREATE_RESET});
-        if(!loading){
+        dispatch({ type: taskConst.constants().CREATE_RESET });
+        dispatch(teamActions.list() as any);
+        if (!loading) {
             console.log("ENTROOOO")
-            const t = teams.filter((te:any) => te._id == teamId);
+            const t = teams.filter((te: any) => te._id == teamId);
             listTasks(t[0].tasks, t[0]._id);
             console.log(t[0]._id)
         }
-    } 
+    }
+
+    const addAdmin = (data:any) => {
+        const index = users.findIndex((u:any) => u.name == data.name);
+        if(index >= 0){
+            users.splice(index, 1);
+            setUsers([...users]);
+        }else{
+            setUsers([...users, {name:data.name, image: data.image}]);
+        }
+    }
+
+    const taskConstants = new constants('TASK');
+
+    if (successTask) {
+        dispatch({ type: taskConstants.constants().CREATE_RESET });
+        newTask(taskConstants)
+    }
     useEffect(() => {
         const teamConstants = new constants('TEAM');
-        const taskConstants = new constants('TASK');
-        
+
         if (success) {
-            dispatch({type: teamConstants.constants().CREATE_RESET});
+            dispatch({ type: teamConstants.constants().CREATE_RESET });
             setOpenModal(false);
         }
 
-        if(successTask){
-            newTask(taskConstants)
-        }
-
         dispatch(teamActions.list() as any);
+        dispatch(adminActions.list() as any);
     }, [dispatch, success, successTask])
 
 
@@ -129,12 +148,13 @@ const TaskScreen = () => {
                     {loading ? <LoadingBox /> : (
 
                         <div className="teams-task-list">
-                            {teams.map(({ _id, name, members, tasks }: any) => (
+                            {teams.map(({ _id, name, image, members, tasks }: any) => (
                                 <div className="team-task-item" key={_id} onClick={() => listTasks(tasks, _id)}>
-                                    <i className='bx bx-code-alt' ></i>
+                                    {/* <i className='bx bx-code-alt' ></i> */}
+                                    <img src={image} alt="" />
                                     <div>
-                                        <h3>{name}</h3>
-                                        <p>{members.length} members</p>
+                                        <h3 className="team-title">{name}</h3>
+                                        {/* <p>{members.length} members</p> */}
                                     </div>
                                 </div>
                             ))}
@@ -165,7 +185,6 @@ const TaskScreen = () => {
             <div className="screen">
                 <div className="screen-header">
                     <div>
-
                         <h2 className="screen-title">Tasks</h2>
                         <p className="screen-copy">Team tasks for the current period</p>
                     </div>
@@ -178,38 +197,38 @@ const TaskScreen = () => {
                     <div className="list-container">
                         <List id="list1" title="Ideas">
                             {tasks?.filter(({ state }: TasksProps) => state === 0)
-                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
                                 ))}
                         </List>
                         <List id="list2" title="To Do">
-                        {tasks?.filter(({ state }: TasksProps) => state === 1)
-                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                            {tasks?.filter(({ state }: TasksProps) => state === 1)
+                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
                                 ))}
                         </List>
                         <List id="list3" title="In Process">
-                        {tasks?.filter(({ state }: TasksProps) => state === 2)
-                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                            {tasks?.filter(({ state }: TasksProps) => state === 2)
+                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
                                 ))}
                         </List>
                         <List id="list4" title="Sprint">
-                        {tasks?.filter(({ state }: TasksProps) => state === 3)
-                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                            {tasks?.filter(({ state }: TasksProps) => state === 3)
+                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
                                 ))}
                         </List>
                         <List id="list5" title="Review">
-                        {tasks?.filter(({ state }: TasksProps) => state === 4)
-                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                            {tasks?.filter(({ state }: TasksProps) => state === 4)
+                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
                                 ))}
                         </List>
-                        <List id="list6" title="Finised">
-                        {tasks?.filter(({ state }: TasksProps) => state === 5)
-                                .map(({ _id, index, code, priority, title, description, state }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} />
+                        <List id="list6" title="Finished">
+                            {tasks?.filter(({ state }: TasksProps) => state === 5)
+                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
+                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
                                 ))}
                         </List>
                     </div>
@@ -222,7 +241,7 @@ const TaskScreen = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h2>Add Team</h2>
+                            <h2>Add Task</h2>
                             <button onClick={() => setOpenModalTask(false)} ><i className='bx bx-x' ></i></button>
                         </div>
                         <div className="modal-inputs">
@@ -233,7 +252,7 @@ const TaskScreen = () => {
                             </select>
                             <input type="text" placeholder="Title" name="" id="" onChange={(e) => setTitle(e.target.value)} />
                             <textarea name="" id="" cols={30} rows={10} placeholder="Description" onChange={(e) => setDescription(e.target.value)}></textarea>
-                            <select name="" id="" onChange={(e) => setState(e.target.value)}>
+                            <select name="" id="" onChange={(e: any) => setState(e.target.value)}>
                                 <option value={0}>Idea</option>
                                 <option value={1}>To Do</option>
                                 <option value={2}>In Process</option>
@@ -241,6 +260,27 @@ const TaskScreen = () => {
                                 <option value={3}>Review</option>
                                 <option value={3}>Finished</option>
                             </select>
+                            <div className="labels-tasks">
+                                {!loadingAdmin && (
+                                    <>
+                                        {admins.map((admin: any) => (
+                                            <label key={admin._id} htmlFor={admin.name} title={admin.name}>
+                                                <div className="picture">
+                                                    {admin.image ? (
+                                                        <img src={admin.image} alt={admin.name} />
+                                                    ) : (
+                                                        <div className='admin-letter'>
+                                                            {admin.name.charAt(0)}
+                                                        </div>
+                                                        )}
+                                                </div>
+                                                <input type="checkbox"  onChange={() => addAdmin({name: admin.name, image:admin.image})} />
+
+                                            </label>
+                                        ))}
+                                    </>
+                                )}
+                            </div>
                         </div>
                         <button className="btn-success" onClick={createTask}>Crear</button>
                     </div>

@@ -14,12 +14,20 @@ import gameReducer from "./reducers/gameReducer";
 import programReducer from "./reducers/programReducer";
 import taskReducer from "./reducers/taskReducer";
 import quotationReducer from "./reducers/quotationReducer";
+import adminReducer, { adminSigninReducer } from "./reducers/adminReducer";
 
 const initialState = {
-
+    adminSignin: {
+        adminInfo: localStorage.getItem('adminInfo')
+          ? JSON.parse(localStorage.getItem('adminInfo') || '')
+          : null,
+      },
 }
 
 const reducer = combineReducers({
+    adminSignin  : adminSigninReducer,
+    adminList  : adminReducer.listReducer,
+    
     brandList  : brandReducer.listReducer,
     brandCreate: brandReducer.createReducer,
     brandUpdate: brandReducer.updateReducer,

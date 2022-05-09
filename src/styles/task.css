@@ -52,6 +52,10 @@
     position: fixed;;
 }
 
+.list-card-container > div {
+    width: 100%;
+}
+
 .list-container::-webkit-scrollbar {
     /* display: none; */
   }
@@ -141,6 +145,10 @@
     transition: .3s;
 }
 
+.team-task-item img{
+    width: 30px;
+}
+
 .team-task-item i{
     font-size: 3rem;
 }
@@ -157,4 +165,40 @@
     font-size: 1.4rem;
     font-weight: 500;
     color: rgba(0, 0, 0, .5);
+}
+
+.team-title{
+    font-weight: 500;
+    font-size: 1.4rem !important;
+}
+
+.Moderate{
+    background-color: orange;
+    opacity: .8;
+}
+
+.Express{
+    background-color: red;
+    opacity: .85;
+}
+
+.labels-tasks{
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.labels-tasks label{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.labels-tasks input{
+    margin: 0 !important;
+    width: 2rem !important;
+}
+
+.labels-tasks .picture{
+    width: 40px;
 }

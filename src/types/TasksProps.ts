@@ -6,5 +6,6 @@ export interface TasksProps {
     title: string;
     description: string;
     state: number;
+    owners: []
 
 }

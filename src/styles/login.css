@@ -1,0 +1,43 @@
+.login-screen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    flex-direction: column;
+}
+
+.login-screen form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+}
+
+
+.login-screen form input{
+    border: 1px solid rgba(0, 0, 0, .1);
+    width: 350px;
+    height: 5rem;
+
+}
+
+.input-submit{
+    background-color: #1971EA;
+    color: #F2F6FA;
+    font-size: 1.8rem;
+}
+
+.login-copy{
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.admin-letter{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 3rem;
+    border: 1px solid #1971EA;
+    border-radius: 5rem;
+}
