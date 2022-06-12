@@ -29,6 +29,7 @@ const ProductsScreen = () => {
     const dispatch = _useDispatch();
 
     const deleteHandler = (product: any) => {
+        console.log(product);
         dispatch(productActions.delete(product._id) as any);
     }
 
