@@ -1,8 +1,8 @@
 import { Draggable } from "react-beautiful-dnd";
 import { TasksProps } from "../../types/TasksProps";
+import TimeAgo from "react-timeago";
 
-
-const TaskCard = ({ _id, index, code, title, description, state, priority, owners }: TasksProps) => {
+const TaskCard = ({ _id, index, code, title, description, state, priority, owners, createdAt }: TasksProps) => {
     return (
         <Draggable draggableId={_id.toString()} index={index}>
             {(provided) => (
@@ -10,7 +10,7 @@ const TaskCard = ({ _id, index, code, title, description, state, priority, owner
                     <div className="card-task" >
                         <div className={`card-task-title ${priority}`}>
                             <span>#{code}</span>
-                            <span>1 minute ago</span>
+                            <span>{<TimeAgo date={createdAt} />}</span>
                         </div>
                         <div className="card-task-content">
 
@@ -30,6 +30,8 @@ const TaskCard = ({ _id, index, code, title, description, state, priority, owner
                                     )}
                                 </div>
                             ))}
+
+                            
                             {/* <div className="user-content">
                             <img src="/ceo.png" alt="" title="Nestor Mosquera" />
                             </div>
@@ -40,6 +42,12 @@ const TaskCard = ({ _id, index, code, title, description, state, priority, owner
                             <img src="/ceo.png" alt="" title="Nestor Mosquera" />
                             </div> */}
                         </div>
+                        <div className="card-actions">
+                                        <button><i className='bx bx-trash' ></i></button>
+                                        <button><i className='bx bxs-left-arrow' ></i></button>
+                                        <button><i className='bx bxs-right-arrow'></i></button>
+
+                                    </div>
                     </div>
 
                 </div>

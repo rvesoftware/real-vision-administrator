@@ -52,7 +52,7 @@ const QuoteScreen = () => {
 
     
     const createAndDownloadPdf = async() => {
-        const {data} = await axios.post('https://real-vision-api.herokuapp.com/create-pdf', {specs: [...specs], price: actualPrice, code:code, name: name}, {responseType: 'blob' });
+        const {data} = await axios.post('http://localhost:4500/create-pdf', {specs: [...specs], price: actualPrice, code:code, name: name}, {responseType: 'blob' });
         console.log(data)
         const pdfBlob = new Blob([data], {type: 'application/pdf'});
         const link = document.createElement('a')

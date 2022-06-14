@@ -15,6 +15,7 @@ import programReducer from "./reducers/programReducer";
 import taskReducer from "./reducers/taskReducer";
 import quotationReducer from "./reducers/quotationReducer";
 import adminReducer, { adminSigninReducer } from "./reducers/adminReducer";
+import accountReducer from "./reducers/accountReducer";
 
 const initialState = {
     adminSignin: {
@@ -76,6 +77,7 @@ const reducer = combineReducers({
     teamDelete: teamReducer.deleteReducer,
 
     taskList  : taskReducer.listReducer,
+    taskListMany  : taskReducer.listManyReducer,
     taskCreate: taskReducer.createReducer,
     taskUpdate: taskReducer.updateReducer,
     taskDelete: taskReducer.deleteReducer,
@@ -92,6 +94,11 @@ const reducer = combineReducers({
     pageUpdate: pageReducer.updateReducer,
     pageDelete: pageReducer.deleteReducer,
 
+
+    accountList  : accountReducer.listReducer,
+    accountCreate: accountReducer.createReducer,
+    accountUpdate: accountReducer.updateReducer,
+    accountDelete: accountReducer.deleteReducer,
 
     uploadImage: uploadReducer,
 

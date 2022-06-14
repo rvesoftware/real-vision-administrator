@@ -68,6 +68,7 @@ const Navigation = () => {
                 <summary>MANAGEMENT <i className='bx bx-chevron-down' ></i></summary>
                 <div className='navigation-list'>
                     <Link to="/employes"><i className='bx bxs-user-detail' ></i> Employes</Link>
+                    <Link to="/accounts"><i className='bx bxs-user-detail' ></i> Accounts</Link>
                 </div>
 
             </details>

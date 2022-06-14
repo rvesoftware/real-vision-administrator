@@ -25,19 +25,21 @@ const TaskScreen = () => {
     const adminList = useSelector((state: any) => state.adminList);
     const { loading: loadingAdmin, error: errorAdmin, data: admins } = adminList;
 
-
     const teamCreate = useSelector((state: any) => state.teamCreate);
     const { loading: loadingCreate, error: errorCreate, success } = teamCreate;
 
     const taskCreate = useSelector((state: any) => state.taskCreate);
     const { loading: loadingTask, error: errorTask, success: successTask } = taskCreate;
 
+    const taskListMany = useSelector((state: any) => state.taskListMany);
+    const { loading: loadingListTask, error: errorListTask, data: tasks } = taskListMany;
+
+
     const [name, setName] = useState('');
     const [openModal, setOpenModal] = useState(false)
     const [openModalTask, setOpenModalTask] = useState(false)
-    const [tasks, setTasks] = useState<[]>();
     const [teamImage, setTeamImage] = useState("");
-    const [teamId, setTeamId] = useState();
+    const [teamId, setTeamId] = useState<string>("");
 
     const [title, setTitle] = useState("");
     const [priority, setPriority] = useState("Delayed");
@@ -56,15 +58,14 @@ const TaskScreen = () => {
 
     const createTask = (e: any) => {
         e.preventDefault();
-        dispatch(taskActions.create({ id: teamId, title, priority, description, state, owners: users}) as any);
+        dispatch(taskActions.create({ team: teamId, title, priority, description, state, owners: users }) as any);
         setOpenModalTask(false);
-        dispatch(teamActions.list() as any);
+        // dispatch(teamActions.list() as any);
         // dispatch(teamActions.list() as any);
     }
 
     const listTasks = (tasks: any, id: any) => {
-        dispatch(teamActions.list() as any);
-        setTasks(tasks);
+        dispatch(taskActions.listMany(id) as any);
         setTeamId(id);
     }
 
@@ -107,35 +108,43 @@ const TaskScreen = () => {
         }
     }
 
-    const addAdmin = (data:any) => {
-        const index = users.findIndex((u:any) => u.name == data.name);
-        if(index >= 0){
+    const addAdmin = (data: any) => {
+        const index = users.findIndex((u: any) => u.name == data.name);
+        console.log(data)
+        console.log(index)
+        if (index >= 0) {
             users.splice(index, 1);
             setUsers([...users]);
-        }else{
-            setUsers([...users, {name:data.name, image: data.image}]);
+        } else {
+            setUsers([...users, { name: data.name, image: data.image }]);
         }
+
+        console.log(users)
     }
 
-    const taskConstants = new constants('TASK');
-
-    if (successTask) {
-        dispatch({ type: taskConstants.constants().CREATE_RESET });
-        newTask(taskConstants)
-    }
+    console.log(users)
     useEffect(() => {
         const teamConstants = new constants('TEAM');
+        const taskConstants = new constants('TASK');
 
         if (success) {
             dispatch({ type: teamConstants.constants().CREATE_RESET });
             setOpenModal(false);
         }
 
+        if (successTask) {
+            dispatch({ type: taskConstants.constants().CREATE_RESET });
+            setUsers([])
+            newTask(taskConstants)
+        }
+
+        dispatch(taskActions.listMany(teamId) as any)
         dispatch(teamActions.list() as any);
         dispatch(adminActions.list() as any);
     }, [dispatch, success, successTask])
 
 
+    console.log(tasks)
     return (
         <>
             <>
@@ -193,46 +202,52 @@ const TaskScreen = () => {
 
                 </div>
 
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <div className="list-container">
-                        <List id="list1" title="Ideas">
-                            {tasks?.filter(({ state }: TasksProps) => state === 0)
-                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
-                                ))}
-                        </List>
-                        <List id="list2" title="To Do">
-                            {tasks?.filter(({ state }: TasksProps) => state === 1)
-                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
-                                ))}
-                        </List>
-                        <List id="list3" title="In Process">
-                            {tasks?.filter(({ state }: TasksProps) => state === 2)
-                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
-                                ))}
-                        </List>
-                        <List id="list4" title="Sprint">
-                            {tasks?.filter(({ state }: TasksProps) => state === 3)
-                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
-                                ))}
-                        </List>
-                        <List id="list5" title="Review">
-                            {tasks?.filter(({ state }: TasksProps) => state === 4)
-                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
-                                ))}
-                        </List>
-                        <List id="list6" title="Finished">
-                            {tasks?.filter(({ state }: TasksProps) => state === 5)
-                                .map(({ _id, index, code, priority, title, description, state, owners }: TasksProps) => (
-                                    <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} />
-                                ))}
-                        </List>
-                    </div>
-                </DragDropContext>
+                {!loadingListTask && (
+
+
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <div className="list-container">
+                            <List id="list1" title="Ideas">
+                                {tasks?.filter(({ state }: TasksProps) => state === 0)
+                                    .map(({ _id, index, code, priority, title, description, state, owners, createdAt }: TasksProps) => (
+                                        <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} createdAt={createdAt} />
+                                    ))}
+                            </List>
+                            <List id="list2" title="To Do">
+                                {tasks?.filter(({ state }: TasksProps) => state === 1)
+                                    .map(({ _id, index, code, priority, title, description, state, owners, createdAt }: TasksProps) => (
+                                        <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} createdAt={createdAt} />
+                                    ))}
+                            </List>
+                            <List id="list3" title="In Process">
+                                {tasks?.filter(({ state }: TasksProps) => state === 2)
+                                    .map(({ _id, index, code, priority, title, description, state, owners, createdAt }: TasksProps) => (
+                                        <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} createdAt={createdAt} />
+                                    ))}
+                            </List>
+                            <List id="list4" title="Sprint">
+                                {tasks?.filter(({ state }: TasksProps) => state === 3)
+                                    .map(({ _id, index, code, priority, title, description, state, owners, createdAt }: TasksProps) => (
+                                        <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} createdAt={createdAt} />
+                                    ))}
+                            </List>
+                            <List id="list5" title="Review">
+                                {tasks?.filter(({ state }: TasksProps) => state === 4)
+                                    .map(({ _id, index, code, priority, title, description, state, owners, createdAt }: TasksProps) => (
+                                        <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} createdAt={createdAt} />
+                                    ))}
+                            </List>
+                            <List id="list6" title="Finished">
+                                {tasks?.filter(({ state }: TasksProps) => state === 5)
+                                    .map(({ _id, index, code, priority, title, description, state, owners, createdAt }: TasksProps) => (
+                                        <TaskCard key={_id} _id={_id} index={index} code={code} priority={priority} title={title} description={description} state={state} owners={owners} createdAt={createdAt} />
+                                    ))}
+                            </List>
+                        </div>
+                    </DragDropContext>
+
+                )}
+
 
             </div>
 
@@ -272,9 +287,9 @@ const TaskScreen = () => {
                                                         <div className='admin-letter'>
                                                             {admin.name.charAt(0)}
                                                         </div>
-                                                        )}
+                                                    )}
                                                 </div>
-                                                <input type="checkbox"  onChange={() => addAdmin({name: admin.name, image:admin.image})} />
+                                                <input type="checkbox" onChange={() => addAdmin({ name: admin.name, image: admin.image })} />
 
                                             </label>
                                         ))}

@@ -111,6 +111,20 @@
     gap: .5rem;
 }
 
+.card-actions{
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+}
+
+.card-actions button{
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+}
+
 .list-card-container{
     display: flex;
     align-items: center;

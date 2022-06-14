@@ -68,6 +68,19 @@ export default class reducerTemplate{
         }
       };
 
+      listManyReducer = (state = { data: [] }, action: any) => {
+        switch (action.type) {
+          case this.LIST_REQUEST:
+            return { loading: true };
+          case this.LIST_SUCCESS:
+            return { loading: false, data: action.payload };
+          case this.LIST_FAIL:
+            return { loading: false, error: action.payload };
+          default:
+            return state;
+        }
+      };
+
         
   createReducer = (state = {}, action: any) => {
     switch (action.type) {

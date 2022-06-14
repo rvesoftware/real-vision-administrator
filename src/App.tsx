@@ -24,6 +24,7 @@ import QuoteScreen from './Screens/Hardware/QuoteScreen'
 import QuotationsScreen from './Screens/Hardware/QuotationsScreen'
 import { useSelector } from 'react-redux'
 import AdminRoute from './components/AdminRoute'
+import AccountsScreen from './Screens/Management/AccountsScreen'
 
 function App() {
   
@@ -58,6 +59,8 @@ function App() {
                 <Route path='/documentation' element={<AdminRoute><Layout><DocumentationScreen /></Layout></AdminRoute>} />
                 <Route path='/calendar' element={<AdminRoute><Layout><CalendarScreen /></Layout></AdminRoute>} />
                 <Route path='/insigths' element={<AdminRoute><Layout><InsigthsScreen /></Layout></AdminRoute>} />
+                <Route path='/accounts' element={<AdminRoute><Layout><AccountsScreen /></Layout></AdminRoute>} />
+              
               </Routes>
             
           
